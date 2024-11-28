@@ -13,7 +13,6 @@ const CrowdfunderCalculator = () => {
   // UI state management
   const [calculationMode, setCalculationMode] = useState('total'); // 'total' or 'target'
   const [wimdInfo, setWimdInfo] = useState(null);
-  const [showWimdInfo, setShowWimdInfo] = useState(false);
 
   const targetGroups = [
     { id: 'women', label: 'Women & Girls' },
@@ -258,7 +257,7 @@ const CrowdfunderCalculator = () => {
               </label>
               <div className="grid grid-cols-2 gap-6">
                 {targetGroups.map((group) => (
-                  <div key={group.id} className="flex items-center space-x-3">
+                  <div key={group.id} className={`flex items-center space-x-3 ${group.id === 'none' ? 'pt-4' : ''}`}>
                     <input
                       type="checkbox"
                       id={group.id}
@@ -280,20 +279,20 @@ const CrowdfunderCalculator = () => {
             </div>
 
             {/* Amount Input */}
-            <div className="space-y-3">
+            <div className="space-y-4 ">
               <label htmlFor="amount" className="sw-label">
                 {calculationMode === 'total' 
                   ? 'What is your total project cost?' 
                   : 'How much do you want to raise from your community?'}
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-3 text-[--color-sw-blue] font-semibold text-lg">£</span>
+                <span className="absolute left-4 top-5 text-[--color-sw-blue] font-semibold text-lg">£</span>
                 <input
                   id="amount"
                   type="number"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  className="sw-input w-full pl-8"
+                  className="sw-input w-full pl-8 p-8"
                   placeholder="Enter amount"
                   min="300"
                 />
@@ -331,8 +330,8 @@ const CrowdfunderCalculator = () => {
                   </div>
                   {/* Unique Supporters */}
                   <div className="bg-white bg-opacity-10 p-4 rounded-lg">
-                    <p className="text-lg font-semibold">
-                      Required Unique Supporters: {getRequiredSupporters(targetAmount)}
+                    <p className="text-lg pb-2 ">
+                      Required Unique Supporters:  <span className='pl-2 font-semibold'>{getRequiredSupporters(targetAmount)} </span>
                     </p>
                     <p className="text-sm mt-1">
                       This is the minimum number of different people who need to support your project

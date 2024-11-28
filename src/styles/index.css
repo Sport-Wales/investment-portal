@@ -34,6 +34,16 @@
   --color-sw-blue: #164B64;
   --color-sw-green: #299D91;
 
+  /* Primary Brand Colors Accent */
+  --color-sw-red-light: #F7BDC2;
+  --color-sw-yellow-light: #FFFFB7;
+  --color-sw-blue-light: #6CD0FF;
+  --color-sw-green-light: #97E9E1;
+  --color-sw-red-dark: #8E0A0A;
+  --color-sw-yellow-dark: #A77B00;
+  --color-sw-blue-dark: #001830;
+  --color-sw-green-dark: #005D53;
+
   /* Neutral Colors */
   --color-black: #000000;
   --color-grey: #BFBEC5;
