@@ -339,7 +339,7 @@ const CrowdfunderCalculator = () => {
                   </div>
                   <p className="text-lg pt-4">
                     Total project value: 
-                    <span className="font-lg text-2xl ml-2">
+                    <span className="font-lg text-3xl ml-2 font-semibold">
                       £{totalProjectValue.toLocaleString('en-GB', { maximumFractionDigits: 2 })}
                     </span>
                   </p>
