@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font Face Declarations */
+@font-face {
+  font-family: 'Objektiv MK1';
+  src: url('/fonts/ObjektivMk1-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Objektiv MK1';
+  src: url('/fonts/ObjektivMk1-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Objektiv MK1';
+  src: url('/fonts/ObjektivMk1-XBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Primary Brand Colors */
+  --color-sw-red: #E32434;
+  --color-sw-yellow: #F6B207;
+  --color-sw-blue: #164B64;
+  --color-sw-green: #299D91;
+
+  /* Neutral Colors */
+  --color-black: #000000;
+  --color-grey: #BFBEC5;
+  --color-light-grey: #F4F5F7;
+  --color-white: #FFFFFF;
+
+  /* Typography - Font Families */
+  --font-primary: 'Objektiv MK1', 'Montserrat', Arial, sans-serif;
+  
+  /* Font Weights */
+  --font-weight-regular: 200;
+  --font-weight-bold: 400;
+  --font-weight-xbold: 800;
+
+  /* Font Sizes */
+  --font-size-body: 16px;
+  --font-size-label: 20px;
+  --font-size-subhead: 20px;
+  --font-size-hero: 95px;
+
+  /* Line Heights */
+  --line-height-tight: 100%;
+  --line-height-normal: 110%;
+  --line-height-relaxed: 130%;
+
+  /* Spacing & Layout */
+  --margin-small: 5%;
+  --margin-large: 10%;
+  --gutter-width: calc(var(--margin-small) / 2);
+
+  /* UI Elements */
+  --border-radius-button: 8px;
+  --button-height: 46px;
+  --button-padding: 1rem 2rem;
+}
+
+/* Base Styles */
+@layer base {
+  body {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-normal);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--font-weight-xbold);
+    line-height: var(--line-height-tight);
+  }
+}
+
+/* Custom Utility Classes */
+@layer utilities {
+  .sw-text-red {
+    color: var(--color-sw-red);
+  }
+
+  .sw-bg-red {
+    background-color: var(--color-sw-red);
+  }
+
+  .sw-text-blue {
+    color: var(--color-sw-blue);
+  }
+
+  .sw-bg-blue {
+    background-color: var(--color-sw-blue);
+  }
+
+  .sw-text-yellow {
+    color: var(--color-sw-yellow);
+  }
+
+  .sw-bg-yellow {
+    background-color: var(--color-sw-yellow);
+  }
+
+  .sw-text-green {
+    color: var(--color-sw-green);
+  }
+
+  .sw-bg-green {
+    background-color: var(--color-sw-green);
+  }
+}
+
+@layer components {
+  /* Existing components */
+  .sw-button {
+    height: var(--button-height);
+    padding: var(--button-padding);
+    border-radius: var(--border-radius-button);
+    font-weight: var(--font-weight-bold);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .sw-button-primary {
+    @apply sw-bg-red text-white hover:opacity-90;
+  }
+
+  .sw-button-secondary {
+    @apply sw-bg-blue text-white hover:opacity-90;
+  }
+
+  .sw-input {
+    height: var(--button-height);
+    border-radius: var(--border-radius-button);
+    padding: 0 1rem;
+    border: 1px solid var(--color-grey);
+  }
+
+  .sw-card {
+    border-radius: var(--border-radius-button);
+    background-color: var(--color-white);
+    padding: 1.5rem;
+  }
+
+  /* New components needed for calculator */
+  .sw-container {
+    @apply max-w-5xl mx-auto;
+  }
+
+  .sw-header {
+    @apply sw-bg-red text-white p-6;
+  }
+
+  .sw-heading-primary {
+    @apply text-3xl font-extrabold leading-tight;
+    font-family: var(--font-fallback);
+  }
+
+  .sw-heading-secondary {
+    @apply text-xl font-bold mb-3;
+    font-family: var(--font-fallback);
+  }
+
+  .sw-checkbox {
+    @apply w-5 h-5 rounded border-2 focus:ring-2;
+    border-color: var(--color-sw-blue);
+    color: var(--color-sw-red);
+  }
+
+  .sw-label {
+    @apply text-lg font-semibold;
+    color: var(--color-sw-blue);
+  }
+
+  .sw-notice {
+    @apply p-4 rounded-lg;
+    background-color: rgba(246, 178, 7, 0.1);
+    border-left: 4px solid var(--color-sw-yellow);
+  }
+
+  .sw-results {
+    @apply p-6 rounded-lg;
+    background-color: var(--color-sw-blue);
+    color: var(--color-white);
+  }
+
+  .sw-highlight {
+    @apply p-4 rounded-lg;
+    background-color: var(--color-sw-green);
+    color: var(--color-white);
+  }
+
+  .sw-sidebar-card {
+    @apply p-6 rounded-lg;
+    background-color: var(--color-light-grey);
+  }
+}
