@@ -33,13 +33,13 @@ const CrowdfunderCalculator = () => {
     } else if (!validateWelshPostcode(postcode)) {
       newErrors.postcode = 'Please enter a valid Welsh postcode';
     }
-    
+
     if (!amount) {
       newErrors.amount = `Please enter ${calculationMode === 'total' ? 'total project cost' : 'target amount'}`;
     } else {
       const value = parseFloat(amount);
       if (value < 300) {
-        newErrors.amount = `Minimum ${calculationMode === 'total' ? 'project cost' : 'target amount'} is £300`;
+        newErrors.amount = `Minimum ${calculationMode === 'total' ? 'Sport Wales will pledge' : 'target amount'} is £300`;
       } else {
         // Calculate potential pledge based on percentage
         let percentage = 30; // Base percentage
@@ -172,8 +172,8 @@ const CrowdfunderCalculator = () => {
       <div className="sw-container sw-card">
         {/* Header */}
         <div className="sw-header">
-          <h2 className="sw-heading-primary">Sport Wales Crowdfund Calculator</h2>
-          <p className="mt-2 text-lg">Calculate potential match funding for your community sports project</p>
+          <h2 className="sw-heading-primary">A Place for Sport - Funding Calculator</h2>
+          <p className="mt-2 text-lg">Calculate potential match funding for your community sports project, Through the crowdfunder platform</p>
         </div>
   
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-8">

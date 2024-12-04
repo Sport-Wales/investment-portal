@@ -4,7 +4,6 @@ import CrowdfunderCalculator from '../components/calculator/CrowdfunderCalculato
 const Calculator = () => {
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-8">A Place for Sport - Funding Calculator</h1>
       <CrowdfunderCalculator />
     </div>
   );
