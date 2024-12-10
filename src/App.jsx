@@ -8,7 +8,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gray-50">
         <main>
-          {/* <LanguageToggle /> */}
+          {/* <LanguageToggle  /> */}
           <Routes>
             <Route path="/" element={<Calculator />} />
             {/* Add more routes as needed */}
