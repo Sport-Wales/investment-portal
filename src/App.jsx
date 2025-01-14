@@ -175,7 +175,7 @@ const Login = ({ onLogin }) => {
             >
               Sign in 
             </button>
-            <span className="block text-center text-sm text-gray-500 mt-2"> Email and password not needed </span>
+            <span className="block text-center text-sm text-gray-500 mt-2 font-bold"> Email and password not needed </span>
           </form>
         </div>
 
