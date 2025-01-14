@@ -175,8 +175,8 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
         {/* Action Required */}
         <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col text-center">
             <div className="flex items-center justify-center mb-2">
-            <AlertCircle className="h-5 w-5 text-sw-yellow" />
-            <span className="ml-2 text-sm text-gray-500">Action Required</span>
+            <FileText className="h-5 w-5 text-sw-yellow" />
+            <span className="ml-2 text-sm text-gray-500">Supporting Evidence</span>
             </div>
             <div className="flex-1 flex items-center justify-center">
             <div>
@@ -186,7 +186,7 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
                 <span className="block text-sm text-gray-500">urgent items</span>
             </div>
             </div>
-        </div>
+            </div>
         </div>
                 
         

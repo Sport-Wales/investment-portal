@@ -27,6 +27,8 @@ const financialYears = [
 
 const Sidebar = ({ 
   currentView,
+  partner = null,
+  onBack,
   tasks, 
   currentTask, 
   onTaskSelect, 
@@ -77,9 +79,23 @@ const Sidebar = ({
     onToggleSection(section);
   };
 
-
   return (
-    <div className="w-[520px] min-w-[520px] max-w-[520px] bg-white border-r flex flex-col h-full overflow-hidden">
+    <div className="w-[520px] min-w-[520px] max-w-[520px] bg-gray-50 border-r flex flex-col h-full overflow-hidden">
+      {partner ? (
+        <div className="p-4">
+          <button
+            onClick={() => onBack()}
+            className=" pb-2 text-lg font-medium text-gray-500 hover:text-gray-700"
+          >
+            Go Back
+          </button>
+          <h1 className="pt-3 text-2xl font-small text-gray-500">{partner}</h1>
+          <h2 className="pb-3 text-lg font-medium text-gray-500 border-b">
+            Partner Agreement Form
+          </h2>
+        </div>
+      ) : null}
+     
       {/* Year Selection */}
       <div className="p-4 border-b bg-gray-50">
         <div className="flex justify-between items-center space-x-2">
@@ -109,6 +125,7 @@ const Sidebar = ({
       {/* Tasks List */}
       <div className="flex-1 overflow-auto scrollbar-hide">
         {/* Dashboard Button */}
+        
         <div className="px-4 pt-4">
           <button
             onClick={() => onTaskSelect('dashboard')}
