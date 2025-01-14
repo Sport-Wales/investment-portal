@@ -1,31 +1,76 @@
-# Sport Wales Crowdfunder Calculator
+# Sport Wales Investment Portal
 
-A React-based calculator tool helping community sports organisations determine potential match funding from Sport Wales. Built with Vite, React, and Tailwind CSS.
+A React-based portal streamlining Sport Wales' partner investment process. Built with Vite, React, and Tailwind CSS, following Sport Wales Brand Guidelines (SWBG).
 
 ## Overview
 
-This calculator helps sports clubs and organisations in Wales:
-- Calculate potential match funding from Sport Wales
-- Determine funding percentages based on location (WIMD data)
-- Factor in support for priority groups
-- Compute total project values and required fundraising amounts
+The Investment Portal transforms Sport Wales' partner investment process from a manual, multi-system workflow into a unified digital platform. It enables:
+- Digital management of partner applications
+- Capability framework assessment and tracking
+- Quarterly accountability monitoring
+- Staff evaluation and assessment tools
+- Bilingual accessibility (English/Welsh)
+- Progress tracking and reporting
 
 ## Key Features
 
-- Two calculation modes:
-  - Total project cost calculation
-  - Target fundraising amount calculation
-- WIMD (Welsh Index of Multiple Deprivation) integration
-- Priority group selection
-- Real-time calculations
-- Responsive design
+- Multi-step application process:
+  - Partner details and organization information
+  - Capability framework assessment
+  - Accountability logging
+  - Staff evaluation tools
+  - Digital sign-off process
+- Real-time progress monitoring
+- Document management system
+- Automated notifications
+- Bilingual interface
 - Sport Wales brand compliant
 
+## Investment Process Workflow
+
+### Partner Journey
+1. Organization Details
+   - Basic organization information
+   - Contact details
+   - Document submissions
+
+2. Capability Framework
+   - Five core principles assessment
+   - Evidence upload functionality
+   - Status tracking (Met/Not Met/Help Needed)
+   - Supporting documentation
+
+3. Accountability Management
+   - Quarterly progress logs
+   - Financial information
+   - Progress tracking
+   - Supporting evidence
+
+4. Final Steps
+   - Review submission
+   - Sign-off process
+   - Offer letter acceptance
+
+### Staff Journey
+1. Application Review
+   - Partner submission review
+   - Assessment input
+   - Progress monitoring
+
+2. Evaluation Process
+   - Framework assessment review
+   - Recommendations input
+   - Conditions setting
+
+3. Sign-off and Approval
+   - Final review
+   - Offer generation
+   - Partner communication
 
 ## Quick Start
 
 ### Prerequisites
-- Node.js installed on your machine
+- Node.js installed (v18 or higher)
 - npm (comes with Node.js)
 - Git for version control
 
@@ -33,8 +78,8 @@ This calculator helps sports clubs and organisations in Wales:
 
 1. Create a new Vite project:
 ```bash
-npm create vite@latest crowdfunder_cal -- --template react
-cd crowdfunder_cal
+npm create vite@latest investment-portal -- --template react
+cd investment-portal
 ```
 
 2. Install dependencies:
@@ -50,73 +95,55 @@ npx tailwindcss init -p
 
 ## Project Structure
 ```
-crowdfunder_cal/
-├── public/              # Static assets that need to be served as-is
+investment-portal/
+├── public/              # Static assets
 │   └── favicon.svg
 ├── src/
 │   ├── components/     
-│   │   ├── layout/     # Layout components (Header, Footer, etc.)
-│   │   └── ui/         # Reusable UI components
-│   ├── pages/          # Page components
-│   ├── assets/         # Images, icons, etc.
-│   ├── data/          # JSON data files
-│   ├── styles/        # CSS files
-│   │   └── index.css  # Global styles
-│   ├── utils/         # Helper functions
-│   ├── App.jsx        # Main App component
-│   ├── main.jsx       # Entry point
-│
-├── index.html          # Entry HTML file
-├── package.json        # Project dependencies and scripts
-├── vite.config.js      # Vite configuration
-├── postcss.config.js   # PostCSS configuration
-├── tailwind.config.js  # Tailwind configuration
-└── README.md          # Project documentation
+│   │   ├── forms/
+│   │   │   └── InvestmentForm/
+│   │   │       ├── tasks/           # Task components
+│   │   │       ├── shared/          # Shared components
+│   │   │       └── validation/      # Validation logic
+│   │   ├── main/                    # Layout components
+│   │   └── ui/                      # UI components
+│   ├── context/                     # Form context
+│   ├── data/                        # Static data
+│   ├── pages/                       # Page components
+│   ├── styles/                      # Global styles
+│   └── utils/                       # Helper functions
+├── index.html          
+├── package.json        
+├── vite.config.js      
+├── postcss.config.js   
+├── tailwind.config.js  
+└── README.md          
 ```
 
+### Key Components
 
-### Key Files
-```
-src/
-├── components/
-│   └── calculator/
-│       └── CrowdfunderCalculator.jsx    # Main calculator component
-├── utils/
-│   ├── wimd.js                         # WIMD data utilities
-│   └── convertWIMDData.js              # WIMD data conversion
-├── data/
-│   ├── PostcodesCSV.csv                # Raw WIMD data
-│   └── wimd_data.json                  # Processed WIMD data
-└── styles/
-    └── index.css                       # Global styles including SWBG
-```
+#### 1. InvestmentForm
+Main form component handling:
+- Multi-step form progression
+- Task state management
+- Form validation
+- Progress tracking
 
+#### 2. Task Components
+Individual task components for:
+- Organization Details
+- Capability Framework
+- Accountability Log
+- Financial Information
+- Evaluation Tools
+- Sign-off Process
 
-## Core Components
-
-### Set up WIMD data:
-   - Place PostcodesCSV.csv in src/data/
-   - Run conversion script:
-   - This will convert the PostcodesCSV.csv file into a JSON file in: 
-   `src/data/wimd_data.json`
-
-```bash
-npm run convert-wimd
-```
-
-### 1. CrowdfunderCalculator
-Main calculator component (`src/components/calculator/CrowdfunderCalculator.jsx`)
-- Handles all calculation logic
-- Manages form state
-- Processes WIMD data
-- Validates inputs
-- Displays results
-
-### 2. WIMD Integration
-WIMD utilities (`src/utils/wimd.js`)
-- Postcode validation
-- WIMD rank lookup
-- Area deprivation checks
+#### 3. Form Context
+Global state management for:
+- Form data
+- Progress tracking
+- Validation states
+- Task navigation
 
 ## Configuration Files
 
@@ -142,7 +169,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'sw-blue': '#164B64',
+        'sw-red': '#E32434',
+        'sw-green': '#299D91',
+        'sw-yellow': '#F6B207'
+      }
+    },
   },
   plugins: [],
 }
@@ -167,7 +201,7 @@ export default {
 />
 ```
 
-### Add to src/index.css
+### Add to src/styles/index.css
 ```css
 @tailwind base;
 @tailwind components;
@@ -187,13 +221,11 @@ npm run build
 npm run preview
 ```
 
-
 ## Deployment
 
 ### Deploy to Netlify:
 
 1. Update netlify.toml for Vite:
-
 ```toml
 [build]
   command = "npm run build"
@@ -214,13 +246,14 @@ netlify deploy
 ```
 
 ## Features
-- Vite for faster development and builds
+- Vite for faster development
 - React Router for navigation
-- Tailwind CSS for styling
-- Font Awesome icons
+- Tailwind CSS styling
+- Lucide React icons
 - HeadlessUI components
-- Production-ready configuration
-- Netlify deployment setup
+- Form context for state management
+- Bilingual support
+- Accessibility compliance
 
 ## License
 This project is licensed under the MIT License.
@@ -231,4 +264,6 @@ For support, email [your-email] or raise an issue in the repository.
 ## Important Notes
 - Vite uses `dist` instead of `build` for production builds
 - Use `npm run dev` for development (not `npm start`)
-- Environment variables in Vite must be prefixed with `VITE_`
+- Environment variables must be prefixed with `VITE_`
+- Ensure bilingual content is complete before deployment
+- Follow Sport Wales brand guidelines for any style modifications
