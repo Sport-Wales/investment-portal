@@ -5,6 +5,8 @@ A React-based portal streamlining Sport Wales' partner investment process. Built
 ## Overview
 
 The Investment Portal transforms Sport Wales' partner investment process from a manual, multi-system workflow into a unified digital platform. It enables:
+- Role-based authentication (Staff/Partner access)
+- Customized dashboards for different user types
 - Digital management of partner applications
 - Capability framework assessment and tracking
 - Quarterly accountability monitoring
@@ -14,17 +16,28 @@ The Investment Portal transforms Sport Wales' partner investment process from a 
 
 ## Key Features
 
-- Multi-step application process:
-  - Partner details and organization information
-  - Capability framework assessment
-  - Accountability logging
-  - Staff evaluation tools
-  - Digital sign-off process
-- Real-time progress monitoring
-- Document management system
-- Automated notifications
-- Bilingual interface
-- Sport Wales brand compliant
+### Authentication & Access
+- Role-based login system:
+  - Staff access via standard login
+  - Partner access via unique URL tokens (e.g., `/sw?v=TOKEN`)
+- Secure authentication flow
+- Session management
+- Dynamic header based on user role
+
+### Dashboards
+- Staff Dashboard:
+  - Overview of all partners
+  - Risk assessment indicators
+  - Meeting requests tracking
+  - Partner activity monitoring
+  - Action items and notifications
+
+- Partner Dashboard:
+  - Progress overview
+  - Task completion status
+  - Upcoming deadlines
+  - Meeting schedule
+  - Document status
 
 ## Investment Process Workflow
 

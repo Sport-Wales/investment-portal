@@ -129,7 +129,6 @@ const Login = ({ onLogin }) => {
                 <input
                   id="email"
                   type="email"
-                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full rounded-lg border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sw-blue sm:text-sm"
@@ -146,11 +145,10 @@ const Login = ({ onLogin }) => {
                 <input
                   id="password"
                   type="password"
-                  required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="block w-full rounded-lg border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sw-blue sm:text-sm"
-                  placeholder="Enter your password"
+                  placeholder="Enter your password "
                 />
               </div>
             </div>
@@ -175,8 +173,9 @@ const Login = ({ onLogin }) => {
               type="submit"
               className="mt-6 w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-sw-blue hover:bg-sw-blue-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sw-blue transition-colors duration-200"
             >
-              Sign in to portal
+              Sign in 
             </button>
+            <span className="block text-center text-sm text-gray-500 mt-2"> Email and password not needed </span>
           </form>
         </div>
 
