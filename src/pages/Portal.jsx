@@ -38,7 +38,7 @@ const Portal = ({ user, onLogout }) => {
     'Partner Details': true
   });
 
-  const [currentView, setCurrentView] = useState('dashboard'); 
+ 
 
   const scrollContainerRef = useRef(null);
 
@@ -136,6 +136,7 @@ const Portal = ({ user, onLogout }) => {
         tasks={tasks}
         partner={selectedPartner}
         onBack={handleGoBack}
+        currentView={view}
         currentTask={currentTask}
         onTaskSelect={handleTaskChange}
         completedSteps={state.completedSteps || []}
