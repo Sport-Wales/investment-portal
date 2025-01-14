@@ -1,10 +1,10 @@
 # Sport Wales Crowdfunder Calculator
 
-A React-based calculator tool helping community sports organizations determine potential match funding from Sport Wales. Built with Vite, React, and Tailwind CSS.
+A React-based calculator tool helping community sports organisations determine potential match funding from Sport Wales. Built with Vite, React, and Tailwind CSS.
 
 ## Overview
 
-This calculator helps sports clubs and organizations in Wales:
+This calculator helps sports clubs and organisations in Wales:
 - Calculate potential match funding from Sport Wales
 - Determine funding percentages based on location (WIMD data)
 - Factor in support for priority groups

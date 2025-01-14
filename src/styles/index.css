@@ -1,13 +1,27 @@
+/* src/styles/index.css */
+
+/* SW Global Styles Sheet (SWGS) */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
+/* Language Toggle */
 .language-toggle {
   position: fixed;
   top: 1rem;
   right: 1rem;
   z-index: 50;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari and Opera */
 }
 
 /* Font Face Declarations */
@@ -33,7 +47,6 @@
   font-weight: 800;
   font-style: normal;
   font-display: swap;
-
 }
 
 :root {
@@ -61,15 +74,18 @@
 
   /* Typography - Font Families */
   --font-primary: 'Objektiv MK1', 'Montserrat', Arial, sans-serif;
-  
+  --font-fallback: 'Montserrat', sans-serif;
+  --font-system: 'Arial', sans-serif;
+
   /* Font Weights */
-  --font-weight-regular: 200;
-  --font-weight-bold: 400;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
   --font-weight-xbold: 800;
 
   /* Font Sizes */
   --font-size-body: 16px;
   --font-size-label: 20px;
+  --font-size-head: 24px;
   --font-size-subhead: 20px;
   --font-size-hero: 95px;
 
@@ -83,10 +99,23 @@
   --margin-large: 10%;
   --gutter-width: calc(var(--margin-small) / 2);
 
-  /* UI Elements */
+  /* Border Radius */
   --border-radius-button: 8px;
+
+  /* Component Specific */
   --button-height: 46px;
   --button-padding: 1rem 2rem;
+
+  /* Layout */
+  --logo-min-width: 160px;
+  --clear-space-logo: 1em;
+
+  /* Transitions */
+  --transition-default: 0.3s ease-in-out;
+
+  /* Opacity */
+  --overlay-light: 75%;
+  --overlay-dark: 90%;
 }
 
 /* Base Styles */
@@ -136,16 +165,20 @@
   .sw-bg-green {
     background-color: var(--color-sw-green);
   }
+
+  .sw-bg-white {
+    background-color: var(--color-white);
+  }
 }
 
 @layer components {
-  /* Existing components */
+  /* Button System */
   .sw-button {
     height: var(--button-height);
     padding: var(--button-padding);
     border-radius: var(--border-radius-button);
     font-weight: var(--font-weight-bold);
-    transition: all 0.3s ease-in-out;
+    transition: var(--transition-default);
   }
 
   .sw-button-primary {
@@ -156,36 +189,20 @@
     @apply sw-bg-blue text-white hover:opacity-90;
   }
 
+  /* Form Components */
   .sw-input {
     height: var(--button-height);
     border-radius: var(--border-radius-button);
     padding: 0 1rem;
     border: 1px solid var(--color-grey);
+    font-family: var(--font-primary);
+    font-size: var(--font-size-body);
   }
 
-  .sw-card {
-    border-radius: var(--border-radius-button);
-    background-color: var(--color-white);
-    padding: 1.5rem;
-  }
-
-  /* New components needed for calculator */
-  .sw-container {
-    @apply max-w-5xl mx-auto;
-  }
-
-  .sw-header {
-    @apply sw-bg-red text-white p-6;
-  }
-
-  .sw-heading-primary {
-    @apply text-3xl font-extrabold leading-tight;
-    font-family: var(--font-fallback);
-  }
-
-  .sw-heading-secondary {
-    @apply text-xl font-bold mb-3;
-    font-family: var(--font-fallback);
+  .sw-label {
+    @apply text-lg font-semibold;
+    color: var(--color-sw-blue);
+    font-family: var(--font-primary);
   }
 
   .sw-checkbox {
@@ -194,11 +211,36 @@
     color: var(--color-sw-red);
   }
 
-  .sw-label {
-    @apply text-lg font-semibold;
-    color: var(--color-sw-blue);
+  /* Layout Components */
+  .sw-container {
+    @apply max-w-5xl mx-auto;
+    padding: 0 var(--margin-small);
   }
 
+  .sw-card {
+    border-radius: var(--border-radius-button);
+    background-color: var(--color-white);
+    padding: 1.5rem;
+  }
+
+  /* Header Components */
+  .sw-header {
+    @apply sw-bg-red text-white p-6;
+  }
+
+  .sw-heading-primary {
+    @apply text-3xl font-extrabold leading-tight;
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-xbold);
+  }
+
+  .sw-heading-secondary {
+    @apply text-xl font-bold mb-3;
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* Content Display */
   .sw-notice {
     @apply p-4 rounded-lg;
     background-color: rgba(246, 178, 7, 0.1);
@@ -220,5 +262,19 @@
   .sw-sidebar-card {
     @apply p-6 rounded-lg;
     background-color: var(--color-light-grey);
+  }
+
+  /* Mode Toggle Button */
+  .mode-toggle-button {
+    @apply sw-button flex-1 min-h-[56px] px-8 text-xs font-semibold tracking-wide;
+    transition: var(--transition-default);
+    
+    &.active {
+      @apply sw-button-primary shadow-lg scale-105;
+    }
+    
+    &.inactive {
+      @apply bg-white border-2 border-[--color-sw-red] text-[--color-sw-red] hover:sw-bg-red hover:text-white hover:scale-102;
+    }
   }
 }
