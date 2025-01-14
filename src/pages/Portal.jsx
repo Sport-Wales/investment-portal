@@ -3,6 +3,7 @@ import React, { useState, useEffect,  useRef } from 'react';
 import Header from '../components/main/Header';
 import Sidebar from '../components/forms/InvestmentForm/Sidebar';
 import { useForm } from '../context/FormContext';
+import PartnerDashboard from '../components/dashboard/PartnerDashboard';
 import InvestmentForm from '../components/forms/InvestmentForm';
 import { tasks as initialTasks, taskSections } from '../data/tasks'; 
 
@@ -32,6 +33,8 @@ const Portal = () => {
     'Partner Details': true
   });
 
+  const [currentView, setCurrentView] = useState('dashboard'); 
+
   const scrollContainerRef = useRef(null);
 
   const scrollToTop = () => {
@@ -59,21 +62,22 @@ const Portal = () => {
   // Handle task change with section management
   // Handle task change with section management
   const handleTaskChange = (taskId) => {
+    if (taskId === 'dashboard') {
+      setCurrentView('dashboard');
+      return;
+    }
+
+    setCurrentView('form');
     console.log("Go to Task:", taskId);
     const newTask = tasks.find(t => t.id === taskId);
     if (newTask) {
       const sectionTitle = findSectionForTask(taskId);
       
-      // Expand the section containing the new task
       if (sectionTitle) {
         setExpandedSections(prev => {
-          // Check if we're already in this section
           if (prev[sectionTitle]) {
-            // If we're in the same section, maintain its open state
             return prev;
           }
-          
-          // If we're moving to a new section, close others and open this one
           return {
             [sectionTitle]: true
           };
@@ -130,7 +134,8 @@ const Portal = () => {
       />
       
       <div className="flex h-[calc(100vh-4rem)]">
-        <Sidebar
+      <Sidebar
+          currentView={currentView}
           tasks={tasks}
           currentTask={currentTask}
           onTaskSelect={handleTaskChange}
@@ -138,21 +143,30 @@ const Portal = () => {
           expandedSections={expandedSections}
           onToggleSection={(section) => {
             setExpandedSections(prev => {
-              // If clicking the currently open section, close it
               if (prev[section]) {
                 return {};
               }
-              // Otherwise, close all sections and open the clicked one
               return {
                 [section]: true
               };
             });
           }}
         />
+
+
+          <div 
+          ref={scrollContainerRef}
+          className="flex-1 overflow-auto bg-gray-50 p-6 scrollbar-hide">
         
-        <div 
-        ref={scrollContainerRef}
-        className="flex-1 overflow-auto bg-gray-50 p-6 scrollbar-hide">
+        {currentView === 'dashboard' ? (
+            <PartnerDashboard 
+              tasks={tasks}
+              notifications={notifications}
+              onTaskSelect={handleTaskChange}
+            />
+          ) : (
+        
+        
           <div className="max-w-5xl mx-auto">
             {/* Task Information Banner */}
             <div className="mb-6 bg-white rounded-lg shadow p-4">
@@ -177,7 +191,6 @@ const Portal = () => {
                 )}
               </div>
             </div>
-
             {/* Form Content */}
             <div 
             className="bg-white rounded-lg shadow">
@@ -189,6 +202,7 @@ const Portal = () => {
               />
             </div>
           </div>
+          )}
         </div>
       </div>
     </div>

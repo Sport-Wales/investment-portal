@@ -602,3 +602,5 @@ const CapabilityFramework = () => {
   
 
 export default CapabilityFramework;
+
+

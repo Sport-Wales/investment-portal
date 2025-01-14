@@ -13,7 +13,8 @@ import {
   ChevronDown,
   Calendar,
   History,
-  RefreshCw
+  RefreshCw,
+  Home
 } from 'lucide-react';
 
 // Financial years available in the system
@@ -25,9 +26,10 @@ const financialYears = [
 
 
 const Sidebar = ({ 
+  currentView,
+  tasks, 
   currentTask, 
   onTaskSelect, 
-  completedSteps,
   expandedSections,
   onToggleSection 
 }) => {
@@ -102,8 +104,27 @@ const Sidebar = ({
         </div>
       </div>
 
+
+
       {/* Tasks List */}
       <div className="flex-1 overflow-auto scrollbar-hide">
+        {/* Dashboard Button */}
+        <div className="px-4 pt-4">
+          <button
+            onClick={() => onTaskSelect('dashboard')}
+            className={`
+              w-full flex items-center px-4 py-4 rounded-lg transition-colors
+              ${currentView === 'dashboard' 
+                ? 'bg-sw-blue text-white' 
+                : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}
+            `}
+          >
+            <Home className="w-5 h-5 mr-3" />
+            <span className={`font-bold text-sm ${currentView === 'dashboard' 
+                ? 'text-white ' 
+                : ' text-gray-900'} text-gray-900`}>Dashboard</span>
+          </button>
+        </div>
         <div className="p-4 space-y-4">
           {Object.entries(taskSections).map(([sectionTitle, section]) => {
             const isLivingSection = section.type === DOCUMENT_TYPES.LIVING;
