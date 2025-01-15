@@ -109,11 +109,11 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
 
   // Mock activity data
   const partnerActivity = [
-    { name: 'Welsh Athletics', category: 'NGB', activity: 85, status: 'on-track' },
-    { name: 'Swim Wales', category: 'NGB', activity: 78, status: 'at-risk' },
-    { name: 'Tennis Wales', category: 'NGB', activity: 92, status: 'signed-off' },
+    { name: 'Welsh Athletics', category: 'NGB', activity: 75, status: 'on-track' },
+    { name: 'Swim Wales', category: 'NGB', activity: 48, status: 'at-risk' },
+    { name: 'Tennis Wales', category: 'NGB', activity: 97, status: 'signed-off' },
+    { name: 'North Wales SP', category: 'SP', activity: 12, status: 'at-risk' },
     { name: 'Disability Sport Wales', category: 'NP', activity: 88, status: 'on-track' },
-    { name: 'North Wales SP', category: 'SP', activity: 72, status: 'at-risk' }
   ];
 
   // Stat Card Component
@@ -197,6 +197,42 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
 
       {/* Upcoming Meetings Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Follow-ups */}
+        <div className="bg-white rounded-lg shadow-sm p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-6">Required Follow-ups</h2>
+        <div className="space-y-4">
+            {followUps.map(followUp => (
+            <div key={followUp.id} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex justify-between items-start">
+                <div className="flex-1">
+                    <div className="flex items-center">
+                    <h3 className="font-medium text-gray-900">{followUp.partner}</h3>
+                    {/* <span className={`ml-3 px-2 py-1 text-xs rounded-full ${
+                        followUp.priority === 'high' ? 'bg-red-100 text-red-800' :
+                        followUp.priority === 'medium' ? 'bg-amber-100 text-amber-800' :
+                        'bg-blue-100 text-blue-800'
+                    }`}>
+                        {followUp.priority} priority
+                    </span> */}
+                    </div>
+                    <p className="text-sm text-gray-600 mt-1">{followUp.task}</p>
+                    <div className="flex items-center mt-2 text-sm text-gray-500">
+                    <Clock className="h-4 w-4 mr-1" />
+                    Due: {new Date(followUp.dueDate).toLocaleDateString()}
+                    <span className="mx-2">•</span>
+                    <Users className="h-4 w-4 mr-1" />
+                    {followUp.assignedTo}
+                    </div>
+                </div>
+                <button className="ml-4 text-sw-blue hover:text-sw-blue-dark">
+                    <ChevronRight className="h-5 w-5" />
+                </button>
+                </div>
+            </div>
+            ))}
+        </div>
+        </div>
+
         {/* Scheduled Meetings */}
         <div className="bg-white rounded-lg shadow-sm p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-6">Upcoming Meetings</h2>
@@ -232,47 +268,13 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
         </div>
 
 
-        {/* Follow-ups */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-6">Required Follow-ups</h2>
-        <div className="space-y-4">
-            {followUps.map(followUp => (
-            <div key={followUp.id} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <div className="flex justify-between items-start">
-                <div className="flex-1">
-                    <div className="flex items-center">
-                    <h3 className="font-medium text-gray-900">{followUp.partner}</h3>
-                    <span className={`ml-3 px-2 py-1 text-xs rounded-full ${
-                        followUp.priority === 'high' ? 'bg-red-100 text-red-800' :
-                        followUp.priority === 'medium' ? 'bg-amber-100 text-amber-800' :
-                        'bg-blue-100 text-blue-800'
-                    }`}>
-                        {followUp.priority} priority
-                    </span>
-                    </div>
-                    <p className="text-sm text-gray-600 mt-1">{followUp.task}</p>
-                    <div className="flex items-center mt-2 text-sm text-gray-500">
-                    <Clock className="h-4 w-4 mr-1" />
-                    Due: {new Date(followUp.dueDate).toLocaleDateString()}
-                    <span className="mx-2">•</span>
-                    <Users className="h-4 w-4 mr-1" />
-                    {followUp.assignedTo}
-                    </div>
-                </div>
-                <button className="ml-4 text-sw-blue hover:text-sw-blue-dark">
-                    <ChevronRight className="h-5 w-5" />
-                </button>
-                </div>
-            </div>
-            ))}
-        </div>
-        </div>
+        
       </div>
 
       {/* Partner Activity Section */}
       <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-gray-900">Partner Activity</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Partner Progress indicator</h2>
           <select className="text-sm border-gray-300 rounded-md">
             <option>Last 7 days</option>
             <option>Last 30 days</option>

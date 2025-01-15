@@ -141,6 +141,7 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
             </div>
             </div>
         </div>
+        
 
         {/* Quarterly Update Deadline */}
         <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col text-center">

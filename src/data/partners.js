@@ -1,4 +1,5 @@
 export const partners = {
+    
     'National Governing Bodies': [
       { id: 'angling-cymru', name: 'Sport Angling Cymru', sport: 'Fishing' },
       { id: 'badminton-wales', name: 'Badminton Wales', sport: 'Badminton' },

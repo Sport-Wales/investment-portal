@@ -127,6 +127,7 @@ const Sidebar = ({
         {/* Dashboard Button */}
         
         <div className="px-4 pt-4">
+          
           <button
             onClick={() => onTaskSelect('dashboard')}
             className={`

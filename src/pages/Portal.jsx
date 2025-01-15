@@ -130,6 +130,7 @@ const Portal = ({ user, onLogout }) => {
         />
       );
     }
+    
 
     return (
       <Sidebar
