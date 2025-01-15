@@ -98,7 +98,7 @@ const Portal = ({ user, onLogout }) => {
     }
     setView('form');
 
-    setCurrentView('form');
+
     console.log("Go to Task:", taskId);
     const newTask = tasks.find(t => t.id === taskId);
     if (newTask) {
@@ -130,7 +130,7 @@ const Portal = ({ user, onLogout }) => {
         />
       );
     }
-    
+
 
     return (
       <Sidebar
