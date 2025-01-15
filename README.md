@@ -107,6 +107,7 @@ npx tailwindcss init -p
 ```
 
 ## Project Structure
+
 ```
 investment-portal/
 ├── public/              # Static assets
