@@ -26,13 +26,13 @@ const validateEmail = (email) => {
     const errors = [];
   
     switch (stepKey) {
-      case 'organizationDetails':
-        if (!data.organizationName?.trim()) {
-          errors.push('Organization name is required');
+      case 'organisationDetails':
+        if (!data.organisationName?.trim()) {
+          errors.push('Organisation name is required');
         }
   
-        if (!data.organizationAddress?.trim()) {
-          errors.push('Organization address is required');
+        if (!data.organisationAddress?.trim()) {
+          errors.push('Organisation address is required');
         }
   
         // Contact Details Validation
@@ -56,10 +56,10 @@ const validateEmail = (email) => {
           errors.push('VAT registration status must be selected');
         }
   
-        // Organization Type Validation
+        // Organisation Type Validation
         const hasOrgType = data.unincorporated || data.company || data.charity;
         if (!hasOrgType && !data.otherType?.trim()) {
-          errors.push('Please select at least one organization type or specify other');
+          errors.push('Please select at least one organisation type or specify other');
         }
         break;
   
@@ -201,7 +201,7 @@ const validateEmail = (email) => {
   // Helper function to validate form data before submission
   export const validateFullForm = (formData) => {
     const steps = [
-      'organizationDetails',
+      'organisationDetails',
       'capabilityGovernance',
       'progressReport',
       'areasOfFocus',

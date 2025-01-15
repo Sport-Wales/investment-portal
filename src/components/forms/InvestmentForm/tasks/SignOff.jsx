@@ -35,9 +35,9 @@ const SignOff = () => {
 
   return (
     <div className="space-y-8">
-      {/* Partner Organization Section Header */}
+      {/* Partner Organisation Section Header */}
       <div className="bg-gray-50 rounded-lg p-4">
-        <h2 className="text-lg font-semibold text-gray-900">Partner Organization Sign Off</h2>
+        <h2 className="text-lg font-semibold text-gray-900">Partner Organisation Sign Off</h2>
         <p className="mt-1 text-sm text-gray-600">Complete all required signatures to submit your application</p>
       </div>
 
