@@ -42,8 +42,8 @@ The Investment Portal transforms Sport Wales' partner investment process from a 
 ## Investment Process Workflow
 
 ### Partner Journey
-1. Organization Details
-   - Basic organization information
+1. Organisation Details
+   - Basic organisation information
    - Contact details
    - Document submissions
 
@@ -101,7 +101,7 @@ npm install react-router-dom @headlessui/react lucide-react @fortawesome/fontawe
 npm install -D tailwindcss postcss autoprefixer
 ```
 
-3. Initialize Tailwind CSS:
+3. Initialise Tailwind CSS:
 ```bash
 npx tailwindcss init -p
 ```
@@ -145,7 +145,7 @@ Main form component handling:
 
 #### 2. Task Components
 Individual task components for:
-- Organization Details
+- Organisation Details
 - Capability Framework
 - Accountability Log
 - Financial Information

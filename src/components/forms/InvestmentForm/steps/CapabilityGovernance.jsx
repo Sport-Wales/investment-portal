@@ -118,7 +118,7 @@ const capabilityFrameworkData = {
           title: 'Environmental, Social and Governance Framework',
           outcomeStatement: 'The organisation can outline the environmental, social, and governance considerations.',
           what: 'The board ensures it considers the impacts on people and the planet when making decisions.',
-          why: 'To ensure sustainable and responsible organizational practices.',
+          why: 'To ensure sustainable and responsible organisational practices.',
           how: 'Through comprehensive ESG framework implementation.'
         }
       ]
@@ -131,9 +131,9 @@ const capabilityFrameworkData = {
         {
           id: 'p2-core1',
           title: 'Leadership and Culture',
-          outcomeStatement: 'Strong leadership promoting positive organizational culture.',
+          outcomeStatement: 'Strong leadership promoting positive organisational culture.',
           what: 'Leadership sets clear direction and values.',
-          why: 'To ensure effective organizational development.',
+          why: 'To ensure effective organisational development.',
           how: 'Through leadership training and cultural initiatives.'
         }
         // Add remaining core requirements (5 total)
@@ -153,13 +153,13 @@ const capabilityFrameworkData = {
     {
       id: 'p3',
       title: 'Principle 3 - Insight, Engagement & Strategy',
-      description: 'This section focuses on how organizations use insight and engage with stakeholders to inform their strategic direction.',
+      description: 'This section focuses on how organisations use insight and engage with stakeholders to inform their strategic direction.',
       coreRequirements: [
         {
           id: 'p3-core1',
           title: 'Strategic Planning',
           outcomeStatement: 'Clear strategic direction and planning.',
-          what: 'Organization has clear strategic objectives.',
+          what: 'Organisation has clear strategic objectives.',
           why: 'To ensure focused development and growth.',
           how: 'Through strategic planning process and stakeholder engagement.'
         }
@@ -180,14 +180,14 @@ const capabilityFrameworkData = {
     {
       id: 'p4',
       title: 'Principle 4 - Standards, Systems & Controls',
-      description: 'This section ensures organizations have appropriate systems and controls in place.',
+      description: 'This section ensures organisations have appropriate systems and controls in place.',
       coreRequirements: [
         {
           id: 'p4-core1',
           title: 'Risk Management',
           outcomeStatement: 'Effective risk management system.',
-          what: 'Organization identifies and manages risks.',
-          why: 'To protect organization and stakeholders.',
+          what: 'Organisation identifies and manages risks.',
+          why: 'To protect organisation and stakeholders.',
           how: 'Through risk assessment and management procedures.'
         }
         // Add remaining core requirements (4 total)
@@ -213,7 +213,7 @@ const capabilityFrameworkData = {
           id: 'p5-core1',
           title: 'Financial Management',
           outcomeStatement: 'Sound financial management practices.',
-          what: 'Organization manages finances effectively.',
+          what: 'Organisation manages finances effectively.',
           why: 'To ensure financial sustainability.',
           how: 'Through financial controls and procedures.'
         }
