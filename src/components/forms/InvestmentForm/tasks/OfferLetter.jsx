@@ -118,7 +118,7 @@ const OfferLetter = () => {
           {/* Salutation and Introduction */}
           <div className="prose max-w-none">
             <p className="text-lg mb-6">Dear {formData.recipientName?.split(' ')[1] || 'James'},</p>
-            <h2 className="text-xl font-bold mb-8 tracking-tight">PARTNERSHIP AGREEMENT - 1 APRIL 2024 TO 31 MARCH 2025</h2>
+            <h2 className="text-xl font-bold mb-8 tracking-tight">PARTNERSHIP AGREEMENT - 1 APRIL 2025</h2>
             
             <div className="text-gray-700 space-y-6 leading-relaxed">
               <p>Thank you for the continued contribution that you have made during the last twelve months to the delivery of the Vision for Sport in Wales. We fully appreciate that it has been another challenging year and greatly value the role that you have played to ensure that sport remains in a strong position across Wales.</p>
