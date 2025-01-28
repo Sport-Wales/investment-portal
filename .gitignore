@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+*.docx
+~$*
+.tmp
+
+
+Full project context.docx
