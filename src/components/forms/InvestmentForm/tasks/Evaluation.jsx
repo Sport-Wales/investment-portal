@@ -1,6 +1,8 @@
+// src/components/forms/InvestmentForm/tasks/Evaluation.jsx
 import React, { useState, useEffect } from 'react';
 import { useForm } from '../../../../context/FormContext';
 import FormField from '../shared/FormField';
+import { isPartnerView } from '../../../../utils/roleHelpers';
 import { 
   ClipboardList, 
   ChevronDown, 
@@ -9,7 +11,8 @@ import {
   FileText,
   Calendar,
   Users,
-  CheckCircle
+  CheckCircle,
+  Info
 } from 'lucide-react';
 
 const assessmentAreas = [
@@ -49,8 +52,10 @@ const Evaluation = () => {
   const { state, dispatch } = useForm();
   const [expandedSection, setExpandedSection] = useState('overview');
   const formData = state.formData.evaluation || {};
+  const isPartner = isPartnerView();
 
   const handleChange = (field, value) => {
+    if (isPartner) return; // Prevent partners from making changes
     dispatch({
       type: 'SET_FORM_DATA',
       section: 'evaluation',
@@ -75,8 +80,26 @@ const Evaluation = () => {
     }).format(value);
   };
 
+
   return (
     <div className="max-w-5xl mx-auto space-y-6">
+      {/* Partner View Warning Banner */}
+      {isPartner && (
+        <div className="bg-blue-50 border-l-4 border-sw-blue p-4 mb-6">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <Info className="h-5 w-5 text-sw-blue" />
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-sw-blue">Sport Wales Staff Evaluation</h3>
+              <p className="mt-1 text-sm text-gray-700">
+                This evaluation is completed by Sport Wales staff. You can view the assessment and recommendations but cannot make changes.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="flex items-start space-x-3">
@@ -101,7 +124,7 @@ const Evaluation = () => {
                   label="Partner Assessment"
                   helpText="Please provide a general overview of the application including the following areas: EDI, Participation, Pathway and Performance, Governance and Leadership, Workforce and coaching, Additional priorities, Insight and data usage, Governance Improvement Plan progress, Accountability commitment, Sport Wales relationship, and Partner feedback."
                 >
-                  <div className="space-y-2">
+          <div className="space-y-2">
                     <p className="text-sm text-gray-500">Review should cover:</p>
                     <ul className="text-sm text-gray-500 list-disc pl-5 space-y-1">
                       <li>Partner engagement with Sport Wales in identifying key areas and potential opportunities/issues</li>
@@ -118,13 +141,15 @@ const Evaluation = () => {
                     value={formData.assessmentOverview || ''}
                     onChange={(e) => handleChange('assessmentOverview', e.target.value)}
                     rows={12}
-                    className="mt-4 block w-full p-3 rounded-md border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm"
-                    placeholder="Enter your comprehensive assessment..."
+                    disabled={isPartner}
+                    className={`mt-4 block w-full p-3 rounded-md border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
+                      isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                    }`}
+                    placeholder={isPartner ? '' : "Enter your comprehensive assessment..."}
                   />
                 </FormField>
               </div>
             </div>
-         
       </div>
 
       {/* Financial Recommendations */}
@@ -149,7 +174,10 @@ const Evaluation = () => {
                   type="number"
                   value={formData.developmentSupport || ''}
                   onChange={(e) => handleChange('developmentSupport', e.target.value)}
-                  className="block w-full pl-10 pr-12 pt-2 pb-2 sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue"
+                  disabled={isPartner}
+                  className={`block w-full pl-10 pr-12 pt-2 pb-2 sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue ${
+                    isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                  }`}
                   placeholder="0.00"
                 />
               </div>
@@ -167,7 +195,10 @@ const Evaluation = () => {
                   type="number"
                   value={formData.performanceSucceed || ''}
                   onChange={(e) => handleChange('performanceSucceed', e.target.value)}
-                  className="block w-full pl-10 pr-12 pt-2 pb-2  sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue"
+                  disabled={isPartner}
+                  className={`block w-full pl-10 pr-12 pt-2 pb-2 sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue ${
+                    isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                  }`}
                   placeholder="0.00"
                 />
               </div>
@@ -196,7 +227,10 @@ const Evaluation = () => {
                       type="number"
                       value={formData[allocation.id] || ''}
                       onChange={(e) => handleChange(allocation.id, e.target.value)}
-                      className="block w-full pl-10 pr-12 pt-2 pb-2  sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue"
+                      disabled={isPartner}
+                      className={`block w-full pl-10 pr-12 pt-2 pb-2 sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue ${
+                        isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                      }`}
                       placeholder="0.00"
                     />
                   </div>
@@ -209,38 +243,44 @@ const Evaluation = () => {
 
       {/* Conditions & Expectations */}
       <div className="bg-white rounded-lg shadow-sm">
-      <div className="px-6 py-4 bg-gray-50">
-        <h3 className="text-lg font-medium text-gray-900">Conditions & Expectations</h3>
-      </div>
-      
-      <div className="p-6 space-y-6">
-        <FormField
-          label="Conditions"
-          helpText="Areas to be completed within the specified timeframe for investment release. These conditions will be included in the offer letter."
-        >
-          <textarea
-            value={formData.conditions || ''}
-            onChange={(e) => handleChange('conditions', e.target.value)}
-            rows={4}
-            className="block w-full rounded-md p-2 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm"
-            placeholder="Enter conditions or 'none'"
-          />
-        </FormField>
+        <div className="px-6 py-4 bg-gray-50">
+          <h3 className="text-lg font-medium text-gray-900">Conditions & Expectations</h3>
+        </div>
         
-        <FormField
-          label="Expectations"
-          helpText="Areas for the partner to aim to complete throughout the term of the offer letter. These expectations will be included in the offer letter."
-        >
-          <textarea
-            value={formData.expectations || ''}
-            onChange={(e) => handleChange('expectations', e.target.value)}
-            rows={4}
-            className="block w-full rounded-md p-2 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm"
-            placeholder="Enter expectations or 'none'"
-          />
-        </FormField>
+        <div className="p-6 space-y-6">
+          <FormField
+            label="Conditions"
+            helpText="Areas to be completed within the specified timeframe for investment release. These conditions will be included in the offer letter."
+          >
+            <textarea
+              value={formData.conditions || ''}
+              onChange={(e) => handleChange('conditions', e.target.value)}
+              rows={4}
+              disabled={isPartner}
+              className={`block w-full rounded-md p-2 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
+                isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+              }`}
+              placeholder={isPartner ? '' : "Enter conditions or 'none'"}
+            />
+          </FormField>
+          
+          <FormField
+            label="Expectations"
+            helpText="Areas for the partner to aim to complete throughout the term of the offer letter. These expectations will be included in the offer letter."
+          >
+            <textarea
+              value={formData.expectations || ''}
+              onChange={(e) => handleChange('expectations', e.target.value)}
+              rows={4}
+              disabled={isPartner}
+              className={`block w-full rounded-md p-2 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
+                isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+              }`}
+              placeholder={isPartner ? '' : "Enter expectations or 'none'"}
+            />
+          </FormField>
+        </div>
       </div>
-    </div>
 
       {/* Sign Off Section */} 
       <div className="bg-white rounded-lg shadow-sm">
@@ -258,7 +298,10 @@ const Evaluation = () => {
                 type="text"
                 value={formData.completedBy || ''}
                 onChange={(e) => handleChange('completedBy', e.target.value)}
-                className="mt-1 block w-full rounded-md p-2 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm"
+                disabled={isPartner}
+                className={`mt-1 block w-full rounded-md p-2 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
+                  isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                }`}
               />
             </FormField>
 
@@ -270,7 +313,10 @@ const Evaluation = () => {
                 type="date"
                 value={formData.completionDate || ''}
                 onChange={(e) => handleChange('completionDate', e.target.value)}
-                className="mt-1 block w-full rounded-md p-2 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm"
+                disabled={isPartner}
+                className={`mt-1 block w-full rounded-md p-2 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
+                  isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                }`}
               />
             </FormField>
           </div>
@@ -283,7 +329,10 @@ const Evaluation = () => {
                 type="date"
                 value={formData.decisionDate || ''}
                 onChange={(e) => handleChange('decisionDate', e.target.value)}
-                className="mt-1 block w-full p-2 rounded-md mb-4 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm"
+                disabled={isPartner}
+                className={`mt-1 block w-full p-2 rounded-md mb-4 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
+                  isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                }`}
               />
             </FormField>
 
@@ -295,94 +344,108 @@ const Evaluation = () => {
                 value={formData.decisionMakers || ''}
                 onChange={(e) => handleChange('decisionMakers', e.target.value)}
                 rows={2}
-                className="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm"
+                disabled={isPartner}
+                className={`mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
+                  isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                }`}
               />
             </FormField>
           </div>
-
         </div>
+
         {/* Financial Decision */}
         <div className="bg-white rounded-lg shadow-sm">
             <div className="px-6 py-4 bg-gray-50">
-            <h3 className="text-lg font-medium text-gray-900">Sport Wales Decision on Investment </h3>
-               </div>
+              <h3 className="text-lg font-medium text-gray-900">Sport Wales Decision on Investment</h3>
+            </div>
             
-                <div className="p-6 space-y-6">
-                    {/* Development Support */}
-                    <h4 className="text-base font-medium text-gray-900 mb-8">Budget Lines</h4>
+            <div className="p-6 space-y-6">
+                {/* Development Support */}
+                <h4 className="text-base font-medium text-gray-900 mb-8">Budget Lines</h4>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <FormField
+                      label="Development Support (Welsh Government)"
+                      required
+                    >
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <PoundSterling className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                          type="number"
+                          value={formData.developmentSupport || ''}
+                          onChange={(e) => handleChange('developmentSupport', e.target.value)}
+                          disabled={isPartner}
+                          className={`block w-full pl-10 pr-12 pt-2 pb-2 sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue ${
+                            isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                          }`}
+                          placeholder="0.00"
+                        />
+                      </div>
+                    </FormField>
+
+                    <FormField
+                      label="Performance & Succeed (Lottery)"
+                      required
+                    >
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <PoundSterling className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                          type="number"
+                          value={formData.performanceSucceed || ''}
+                          onChange={(e) => handleChange('performanceSucceed', e.target.value)}
+                          disabled={isPartner}
+                          className={`block w-full pl-10 pr-12 pt-2 pb-2 sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue ${
+                            isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                          }`}
+                          placeholder="0.00"
+                        />
+                      </div>
+                    </FormField>
+                </div>
+
+                {/* GIA Allocations */}
+                <div className="mt-8">
+                    <h4 className="text-base font-medium text-gray-900 mb-8 mt-8">GIA Allocations</h4>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                      {[
+                        { id: 'facilities', label: 'SWNC Facilities' },
+                        { id: 'accommodation', label: 'SWNC Accommodation' },
+                        { id: 'mainFacility', label: 'SWNC Main Facility' },
+                        { id: 'officeSpace', label: 'SWNC Office Space' }
+                      ].map((allocation) => (
                         <FormField
-                        label="Development Support (Welsh Government)"
-                        required
+                          key={allocation.id}
+                          label={allocation.label}
                         >
-                        <div className="mt-1 relative rounded-md shadow-sm">
+                          <div className="mt-1 relative rounded-md shadow-sm">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <PoundSterling className="h-5 w-5 text-gray-400" />
+                              <PoundSterling className="h-5 w-5 text-gray-400" />
                             </div>
                             <input
-                            type="number"
-                            value={formData.developmentSupport || ''}
-                            onChange={(e) => handleChange('developmentSupport', e.target.value)}
-                            className="block w-full pl-10 pr-12 pt-2 pb-2 sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue"
-                            placeholder="0.00"
+                              type="number"
+                              value={formData[allocation.id] || ''}
+                              onChange={(e) => handleChange(allocation.id, e.target.value)}
+                              disabled={isPartner}
+                              className={`block w-full pl-10 pr-12 pt-2 pb-2 sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue ${
+                                isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                              }`}
+                              placeholder="0.00"
                             />
-                        </div>
+                          </div>
                         </FormField>
-
-                        <FormField
-                        label="Performance & Succeed (Lottery)"
-                        required
-                        >
-                        <div className="mt-1 relative rounded-md shadow-sm">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <PoundSterling className="h-5 w-5 text-gray-400" />
-                            </div>
-                            <input
-                            type="number"
-                            value={formData.performanceSucceed || ''}
-                            onChange={(e) => handleChange('performanceSucceed', e.target.value)}
-                            className="block w-full pl-10 pr-12 pt-2 pb-2  sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue"
-                            placeholder="0.00"
-                            />
-                        </div>
-                        </FormField>
-                    </div>
-
-                    {/* GIA Allocations */}
-                    <div className="mt-8">
-                        <h4 className="text-base font-medium text-gray-900 mb-8 mt-8">GIA Allocations</h4>
-                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                        {[
-                            { id: 'facilities', label: 'SWNC Facilities' },
-                            { id: 'accommodation', label: 'SWNC Accommodation' },
-                            { id: 'mainFacility', label: 'SWNC Main Facility' },
-                            { id: 'officeSpace', label: 'SWNC Office Space' }
-                        ].map((allocation) => (
-                            <FormField
-                            key={allocation.id}
-                            label={allocation.label}
-                            >
-                            <div className="mt-1 relative rounded-md shadow-sm">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <PoundSterling className="h-5 w-5 text-gray-400" />
-                                </div>
-                                <input
-                                type="number"
-                                value={formData[allocation.id] || ''}
-                                onChange={(e) => handleChange(allocation.id, e.target.value)}
-                                className="block w-full pl-10 pr-12 pt-2 pb-2  sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue"
-                                placeholder="0.00"
-                                />
-                            </div>
-                            </FormField>
-                        ))}
-                        </div>
+                      ))}
                     </div>
                 </div>
             </div>
+        </div>
       </div>
     </div>
   );
 };
  
 export default Evaluation;
+
+  

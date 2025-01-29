@@ -324,7 +324,7 @@ const OfferLetter = () => {
                 <h4 className="text-lg font-medium mb-6 text-gray-900">Partner Acceptance</h4>
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-100">
                   <p className="text-sm text-gray-700 mb-6 leading-relaxed">
-                    I, the duly authorised representative of the Recipient, hereby confirm that I have read the terms of the Offer letter, T&Cs and Capability Framework and hereby accept the Offer.
+                    I, the duly authorised representative of the Recipient, hereby confirm that I have read the terms of the Offer, T&Cs and Capability Framework and hereby accept the Offer.
                   </p>
                   
                   <FormField

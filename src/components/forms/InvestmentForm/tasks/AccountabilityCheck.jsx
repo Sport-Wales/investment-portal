@@ -1,6 +1,7 @@
-// src/components/forms/InvestmentForm/tasks/FinancialInformation.jsx
+// src/components/forms/InvestmentForm/tasks/AccountabilityCheck.jsx
 import React, { useState } from 'react';
 import { useForm } from '../../../../context/FormContext';
+import { isPartnerView } from '../../../../utils/roleHelpers';
 
 import { 
   AlertCircle, 
@@ -105,8 +106,12 @@ const AccountabilityCheck = () => {
     message: ''
   });
   const formData = state.formData.accountabilityCheck || {};
+  const isPartner = isPartnerView();
 
+  // Handler Functions
   const handleCheck = (itemId, checked) => {
+    if (isPartner) return; // Prevent partners from making changes
+    
     dispatch({
       type: 'SET_FORM_DATA',
       section: 'accountabilityCheck',
@@ -125,7 +130,7 @@ const AccountabilityCheck = () => {
   };
 
   const handleComment = (itemId, comment) => {
-    if (!comment.trim()) return;
+    if (isPartner || !comment.trim()) return; // Prevent partners from adding comments
     
     dispatch({
       type: 'SET_FORM_DATA',
@@ -145,6 +150,8 @@ const AccountabilityCheck = () => {
   };
 
   const openNotificationModal = (item) => {
+    if (isPartner) return; // Prevent partners from sending notifications
+    
     setNotificationModal({
       isOpen: true,
       item,
@@ -153,6 +160,8 @@ const AccountabilityCheck = () => {
   };
 
   const sendNotification = () => {
+    if (isPartner) return;
+
     // This would integrate with your notification system
     console.log('Sending notification:', notificationModal.message);
     
@@ -172,6 +181,7 @@ const AccountabilityCheck = () => {
     setTimeout(() => setShowToast(null), 3000);
   };
 
+  // Utility Methods
   const getDaysUntilDeadline = (deadline) => {
     const today = new Date();
     const deadlineDate = new Date(deadline);
@@ -189,6 +199,23 @@ const AccountabilityCheck = () => {
 
   return (
     <div className="max-w-5xl mx-auto">
+      {/* Partner View Warning Banner */}
+      {isPartner && (
+        <div className="bg-blue-50 border-l-4 border-sw-blue p-4 mb-6">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <Info className="h-5 w-5 text-sw-blue" />
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-sw-blue">Staff Assessment Section</h3>
+              <p className="mt-1 text-sm text-gray-700">
+                This section is completed by Sport Wales staff to track your progress and compliance. You can view the assessment but cannot make changes.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Introduction */}
       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
         <div className="flex items-start space-x-3">
@@ -196,10 +223,10 @@ const AccountabilityCheck = () => {
           <div>
             <h2 className="text-lg font-semibold text-gray-900">Partner Progress Overview</h2>
             <p className="mt-2 text-sm text-gray-600">
-                Please review each section of the Partner Agreement carefully by checking these items,
-                you confirm Sport wales commitment assessment and observations obligations throughout
-                the funding period.
-                </p>
+              Please review each section of the Partner Agreement carefully by checking these items,
+              you confirm Sport wales commitment assessment and observations obligations throughout
+              the funding period.
+            </p>
           </div>
         </div>
       </div>
@@ -211,7 +238,7 @@ const AccountabilityCheck = () => {
             <div className="px-6 py-4 bg-sw-blue text-white rounded-t-lg">
               <h3 className="text-lg font-medium">{section.title}</h3>
             </div>
-            
+
             <div className="divide-y divide-gray-100">
               {section.items.map((item) => {
                 const checkData = formData.checks?.[item.id];
@@ -228,7 +255,7 @@ const AccountabilityCheck = () => {
                         <div className="flex-1 min-w-0 pr-4">
                           <div className="flex items-center justify-between">
                             <div>
-                              <span className="text-sm  font-medium text-gray-900">
+                              <span className="text-sm font-medium text-gray-900">
                                 {item.label}
                               </span>
                               <div className="mt-1 flex items-center space-x-2">
@@ -262,7 +289,7 @@ const AccountabilityCheck = () => {
                                 </div>
                               )}
                               
-                              {activeComment === item.id && (
+                              {!isPartner && activeComment === item.id && (
                                 <div className="mt-3">
                                   <textarea
                                     placeholder="Add your comment..."
@@ -284,114 +311,124 @@ const AccountabilityCheck = () => {
 
                         {/* Action Buttons */}
                         <div className="flex items-center space-x-4">
-                          <button
-                            onClick={() => setActiveComment(
-                              activeComment === item.id ? null : item.id
-                            )}
-                            className={`text-gray-400 hover:text-sw-blue ${
-                              activeComment === item.id ? 'text-sw-blue' : ''
-                            }`}
-                          >
-                            <MessageCircle className="h-5 w-5" />
-                          </button>
-                          
-                          <button 
-                            className="text-gray-400 hover:text-amber-500"
-                            onClick={() => openNotificationModal(item)}
-                          >
-                            <Bell className="h-5 w-5" />
-                          </button>
+                          {!isPartner && (
+                            <>
+                              <button
+                                onClick={() => setActiveComment(
+                                  activeComment === item.id ? null : item.id
+                                )}
+                                className={`text-gray-400 hover:text-sw-blue ${
+                                  activeComment === item.id ? 'text-sw-blue' : ''
+                                }`}
+                              >
+                                <MessageCircle className="h-5 w-5" />
+                              </button>
+                              
+                              <button 
+                                className="text-gray-400 hover:text-amber-500"
+                                onClick={() => openNotificationModal(item)}
+                              >
+                                <Bell className="h-5 w-5" />
+                              </button>
+                            </>
+                          )}
 
                           <div className="relative">
                             <input
                               type="checkbox"
                               checked={checkData?.checked || false}
                               onChange={(e) => handleCheck(item.id, e.target.checked)}
-                              className="h-5 w-5 rounded-full text-sw-blue border-gray-300 focus:ring-sw-blue"
+                              disabled={isPartner}
+                              className={`h-5 w-5 rounded-full text-sw-blue border-gray-300 focus:ring-sw-blue ${
+                                isPartner ? 'cursor-not-allowed opacity-60' : ''
+                              }`}
                             /> 
                           </div>
                         </div>
                       </div>
                     </div>
-
                   </div>
                 );
               })}
             </div>
-            
           </div>
         ))}
       </div>
 
-      {/* New separate GIP & Evidence Sign Off section */}
+      {/* GIP & Evidence Sign Off section */}
       <div className="bg-white mt-10 rounded-lg border border-gray-200 p-6">
         <div className="mt-3 mb-6 bg-white rounded-lg shadow-sm">
-        <div className="grid grid-cols-2 gap-6">
-          {/* GIP Sign Off */}
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <div className="flex items-center justify-between">
-              <div>
-                <h4 className="text-sm font-medium text-gray-900">Governance Improvement Plan</h4>
-                <p className="text-xs text-gray-500 mt-1">Sign off GIP review</p>
+          <div className="grid grid-cols-2 gap-6">
+            {/* GIP Sign Off */}
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Governance Improvement Plan</h4>
+                  <p className="text-xs text-gray-500 mt-1">Sign off GIP review</p>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={formData.gipSignOff || false}
+                  onChange={(e) => handleCheck('gipSubmitted', e.target.checked)}
+                  disabled={isPartner}
+                  className={`h-5 w-5 rounded-full text-sw-blue border-gray-300 focus:ring-sw-blue ${
+                    isPartner ? 'cursor-not-allowed opacity-60' : ''
+                  }`}
+                />
               </div>
-              <input
-                type="checkbox"
-                checked={formData.gipSignOff || false}
-                onChange={(e) => handleCheck('gipSubmitted', e.target.checked)}
-                className="h-5 w-5 rounded-full text-sw-blue border-gray-300 focus:ring-sw-blue"
-              />
             </div>
-          </div>
-          {/* Evidence Sign Off */}
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <div className="flex items-center justify-between">
-              <div>
-                <h4 className="text-sm font-medium text-gray-900">Supporting Evidence</h4>
-                <p className="text-xs text-gray-500 mt-1">Sign off evidence review</p>
+            {/* Evidence Sign Off */}
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">Supporting Evidence</h4>
+                  <p className="text-xs text-gray-500 mt-1">Sign off evidence review</p>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={formData.evidenceSignOff || false}
+                  onChange={(e) => handleCheck('gipSubmitted', e.target.checked)}
+                  disabled={isPartner}
+                  className={`h-5 w-5 rounded-full text-sw-blue border-gray-300 focus:ring-sw-blue ${
+                    isPartner ? 'cursor-not-allowed opacity-60' : ''
+                  }`}
+                />
               </div>
-              <input
-                type="checkbox"
-                checked={formData.evidenceSignOff || false}
-                onChange={(e) => handleCheck('gipSubmitted', e.target.checked)}
-                className="h-5 w-5 rounded-full text-sw-blue border-gray-300 focus:ring-sw-blue"
-              />
             </div>
           </div>
         </div>
-    </div>
 
-      {/* Final Confirmation */}
-      
+        {/* Final Confirmation */}
         <div className="flex items-start space-x-3">
-        <Check className="h-6 w-6 text-sw-green flex-shrink-0" />
-        <div>
+          <Check className="h-6 w-6 text-sw-green flex-shrink-0" />
+          <div>
             <h3 className="text-base font-semibold text-gray-900">
-            Final Confirmation
+              Final Confirmation
             </h3>
             <p className="mt-2 text-sm text-gray-600 mb-4">
-            By checking this box, you confirm that all information provided has been reviewed and all sections of the Partner Agreement has been filled in and complete.
-            
+              By checking this box, you confirm that all information provided has been reviewed and all sections of the Partner Agreement has been filled in and complete.
             </p>
             <div className="flex items-center">
-            <input
+              <input
                 id="final-confirmation"
                 type="checkbox"
                 checked={formData.finalConfirmation || false}
-                onChange={(e) => handleCheck(item.id, e.target.checked)}
-                className="h-4 w-4 rounded border-gray-300 text-sw-blue focus:ring-sw-blue"
-            />
-            <label htmlFor="final-confirmation" className="ml-3 text-sm font-medium text-gray-700">
+                onChange={(e) => handleCheck('finalConfirmation', e.target.checked)}
+                disabled={isPartner}
+                className={`h-4 w-4 rounded border-gray-300 text-sw-blue focus:ring-sw-blue ${
+                  isPartner ? 'cursor-not-allowed opacity-60' : ''
+                }`}
+              />
+              <label htmlFor="final-confirmation" className="ml-3 text-sm font-medium text-gray-700">
                 I confirm all information has been completed
-            </label>
+              </label>
             </div>
+          </div>
         </div>
-        </div>
-        </div>
+      </div>
 
-      
-
-      {/* Notification Modal */}
-      {notificationModal.isOpen && (
+      {/* Notification Modal - Only shown for staff */}
+      {!isPartner && notificationModal.isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-25 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
             <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
@@ -464,6 +501,3 @@ const AccountabilityCheck = () => {
 };
 
 export default AccountabilityCheck;
-
-
-

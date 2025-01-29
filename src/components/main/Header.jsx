@@ -1,8 +1,9 @@
-// src/components/main/Header.jsx
+// // src/components/main/Header.jsx
 import React, { useState } from 'react';
 import { LogOut, User, ChevronDown, Globe, LayoutDashboard } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import NotificationCenter from './NotificationCenter';
+import { isPartnerView, getPartnerDetails } from '../../utils/roleHelpers';
 
 const Header = ({ user, notifications: initialNotifications = [], onLogout }) => {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -12,6 +13,8 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
   const navigate = useNavigate();
   const location = useLocation();
   const isWelsh = location.pathname.includes('/cy');
+  const isPartner = isPartnerView();
+  const partnerDetails = getPartnerDetails();
 
   const toggleLanguage = () => {
     const newPath = isWelsh 
@@ -25,24 +28,7 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
     onLogout();
   };
 
-  // Get display name based on user role
-  const getDisplayName = () => {
-    if (user.role === 'staff') {
-      return 'Sport Wales Staff';
-    }
-    return user.organisation || 'Partner User';
-  };
-
-  // Get role display text
-  const getRoleDisplay = () => {
-    if (user.role === 'staff') {
-      return user.department || 'Staff Portal';
-    }
-    return 'Partner Portal';
-  };
-
-   // Add handleMarkAsRead function
-   const handleMarkAsRead = (notificationIds) => {
+  const handleMarkAsRead = (notificationIds) => {
     setNotifications(prevNotifications =>
       prevNotifications.map(notification =>
         notificationIds.includes(notification.id)
@@ -52,7 +38,6 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
     );
   };
 
-  // Add handleClearAll function if not already present
   const handleClearAll = () => {
     setNotifications([]);
   };
@@ -75,23 +60,31 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
             </div>
   
             <div className="hidden md:flex items-center space-x-8">
-              <span className="text-lg font-medium text-sw-blue border-b-2 border-sw-blue px-1">
-                {user.role === 'staff' ? 'Staff Portal' : `${user.organisation} Portal`}
-              </span>
+              {isPartner ? (
+                <span className="text-xl font-semibold text-sw-blue border-sw-blue px-1">
+                  {partnerDetails?.organisation} Portal
+                </span>
+              ) : (
+                <span className="text-lg font-medium text-sw-blue border-b-2 border-sw-blue px-1">
+                  Staff Portal
+                </span>
+              )}
             </div>
           </div>
   
           {/* Right side navigation items */}
           <div className="flex items-center space-x-6">
-            {/* Notification Center */}
-            <NotificationCenter 
-              notifications={notifications}
-              isOpen={showNotifications}
-              onToggle={() => setShowNotifications(!showNotifications)}
-              onMarkAsRead={handleMarkAsRead}
-              onClearAll={handleClearAll}
-              onClose={() => setShowNotifications(false)}
-            />
+            {/* Notification Center - Only show for staff */}
+            {!isPartner && (
+              <NotificationCenter 
+                notifications={notifications}
+                isOpen={showNotifications}
+                onToggle={() => setShowNotifications(!showNotifications)}
+                onMarkAsRead={handleMarkAsRead}
+                onClearAll={handleClearAll}
+                onClose={() => setShowNotifications(false)}
+              />
+            )}
             
             {/* User Menu */}
             <div className="relative">
@@ -104,10 +97,10 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
                 </div>
                 <div className="hidden md:block text-right">
                   <div className="text-sm font-medium text-gray-700">
-                    {user.role === 'staff' ? user.name : user.organisation}
+                    {isPartner ? partnerDetails?.organisation : user.name}
                   </div>
                   <div className="text-xs text-gray-500">
-                    {user.role === 'staff' ? user.department : 'Partner'}
+                    {isPartner ? 'Partner Portal' : user.department}
                   </div>
                 </div>
                 <ChevronDown className="w-4 h-4 text-gray-400" />

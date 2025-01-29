@@ -188,7 +188,7 @@ export const steps = [
   { component: 'AccountabilityCheck', key: 'accountabilityCheck', title: 'Accountability Check' },
   { component: 'Evaluation', key: 'evaluation', title: 'Evaluation' },
   { component: 'SignOff', key: 'signOff', title: 'Sign Off' },
-  { component: 'OfferLetter', key: 'offerLetter', title: 'Offer Letter' },
+  { component: 'OfferLetter', key: 'offerLetter', title: 'Offer' },
   { component: 'AccountabilityLog', key: 'accountabilityLog', title: 'Accountability Log' },
   { component: 'AdditionalDocs', key: 'additionalDocumentation', title: 'Additional Documentation' },
 ];
