@@ -27,8 +27,8 @@ const progressPeriods = [
 
 const AccountabilityLog = () => {
     const { state, dispatch } = useForm();
-    const [activeQuarter, setActiveQuarter] = useState('q1');
-    const [currentQuarter, setCurrentQuarter] = useState('Quarter 1');
+    const [activeQuarter, setActiveQuarter] = useState('q4');
+    const [currentQuarter, setCurrentQuarter] = useState('Quarter 4');
     const [expandedArea, setExpandedArea] = useState('edi');
     const [activeProgressPeriod, setActiveProgressPeriod] = useState('6month');
     const formData = state.formData.accountabilityLog || {};

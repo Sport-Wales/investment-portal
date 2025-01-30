@@ -62,11 +62,11 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
             <div className="hidden md:flex items-center space-x-8">
               {isPartner ? (
                 <span className="text-xl font-semibold text-sw-blue border-sw-blue px-1">
-                  {partnerDetails?.organisation} Portal
+                  {partnerDetails?.organisation}
                 </span>
               ) : (
-                <span className="text-lg font-medium text-sw-blue border-b-2 border-sw-blue px-1">
-                  Staff Portal
+                <span className="text-lg font-medium text-sw-blue  border-sw-blue px-1">
+                  SW Staff Access
                 </span>
               )}
             </div>

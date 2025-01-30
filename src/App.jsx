@@ -106,9 +106,9 @@ const Login = ({ onLogin }) => {
             Sport Wales Investment Portal
           </h1>
           {isPartnerLogin ? (
-            <p className="mt-3 text-gray-500">Partner Access Portal</p>
+            <p className="mt-5 text-lg text-gray-500">Partner Access</p>
           ) : (
-            <p className="mt-3 text-gray-500">Staff Access Portal</p>
+            <p className="mt-5 text-lg text-gray-500">Staff Access</p>
           )}
         </div>
 
@@ -176,7 +176,7 @@ const Login = ({ onLogin }) => {
             >
               Sign in 
             </button>
-            <span className="block text-center text-sm text-gray-500 mt-2 font-bold"> Email and password not needed </span>
+            {/* <span className="block text-center text-sm text-gray-500 mt-2 font-bold"> Email and password not needed </span> */}
           </form>
         </div>
 

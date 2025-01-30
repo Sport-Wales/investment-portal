@@ -6,6 +6,7 @@ import {
   AlertTriangle, 
   Calendar,
   FileText,
+  ChevronDownIcon,
   HelpCircle,
   X,
   Clock,
@@ -120,13 +121,18 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
   const StatCard = ({ icon: Icon, title, count, color, onClick }) => (
     <div
       onClick={onClick}
-      className="bg-white rounded-lg shadow-sm p-6 flex flex-col items-center cursor-pointer hover:bg-gray-50 transition-colors"
+      className="bg-white rounded-lg shadow-sm p-6 flex flex-col items-center cursor-pointer hover:bg-gray-50 transition-colors relative group"
     >
       <div className={`p-3 rounded-full ${color}`}>
         <Icon className="h-6 w-6" />
       </div>
       <span className="mt-4 text-4xl font-bold text-gray-900">{count}</span>
+      
       <span className="mt-1 text-sm text-gray-500">{title}</span>
+      {title !== "Total Partners" ?  <ChevronDownIcon 
+        className="h-4 w-4 text-gray-400 mt-2 group-hover:text-gray-600 transition-transform duration-200 group-hover:translate-y-1"
+      /> : null }
+     
     </div>
   );
 
@@ -156,7 +162,7 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       {/* Overview Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <StatCard
           icon={Users}
           title="Total Partners"
@@ -167,7 +173,7 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
 
         <StatCard
           icon={CheckCircle}
-          title="Signed Off"
+          title="Partnership Agreements Signed Off"
           count={dashboardStats.signedOff.count}
           color="bg-green-50 text-sw-green"
           onClick={() => setActiveModal('signedOff')}
@@ -179,13 +185,13 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
           color="bg-red-50 text-sw-red"
           onClick={() => setActiveModal('atRisk')}
         />
-        <StatCard
+        {/* <StatCard
           icon={Calendar}
           title="Meeting Requests"
           count={dashboardStats.meetingRequests.count}
           color="bg-amber-50 text-sw-yellow"
           onClick={() => setActiveModal('meetings')}
-        />
+        /> */}
         <StatCard
           icon={HelpCircle}
           title="Need Support"

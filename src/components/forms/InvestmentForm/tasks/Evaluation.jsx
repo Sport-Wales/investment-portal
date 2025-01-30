@@ -244,12 +244,12 @@ const Evaluation = () => {
       {/* Conditions & Expectations */}
       <div className="bg-white rounded-lg shadow-sm">
         <div className="px-6 py-4 bg-gray-50">
-          <h3 className="text-lg font-medium text-gray-900">Conditions & Expectations</h3>
+          <h3 className="text-lg font-medium text-gray-900">Conditions</h3>
         </div>
         
         <div className="p-6 space-y-6">
           <FormField
-            label="Conditions"
+            label="Payment Conditions"
             helpText="Areas to be completed within the specified timeframe for investment release. These conditions will be included in the offer letter."
           >
             <textarea
@@ -257,28 +257,13 @@ const Evaluation = () => {
               onChange={(e) => handleChange('conditions', e.target.value)}
               rows={4}
               disabled={isPartner}
-              className={`block w-full rounded-md p-2 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
+              className={`block w-full h-[400px] rounded-md p-2 pt-5 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
                 isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
               }`}
               placeholder={isPartner ? '' : "Enter conditions or 'none'"}
             />
           </FormField>
           
-          <FormField
-            label="Expectations"
-            helpText="Areas for the partner to aim to complete throughout the term of the offer letter. These expectations will be included in the offer letter."
-          >
-            <textarea
-              value={formData.expectations || ''}
-              onChange={(e) => handleChange('expectations', e.target.value)}
-              rows={4}
-              disabled={isPartner}
-              className={`block w-full rounded-md p-2 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
-                isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
-              }`}
-              placeholder={isPartner ? '' : "Enter expectations or 'none'"}
-            />
-          </FormField>
         </div>
       </div>
 

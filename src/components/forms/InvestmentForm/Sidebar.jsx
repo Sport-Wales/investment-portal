@@ -20,10 +20,9 @@ import {
 // Financial years available in the system
 const financialYears = [
   { id: '2023-24', label: '2023/24', status: 'completed' },
-  { id: '2024-25', label: '2024/25', status: 'current' },
-  { id: '2025-26', label: '2025/26', status: 'upcoming' }
+  { id: '2024-25', label: '2024/25', status: 'completed' },
+  { id: '2025-26', label: '2025/26', status: 'current' }
 ];
-
 
 const Sidebar = ({ 
   currentView,
@@ -90,9 +89,7 @@ const Sidebar = ({
             Go Back
           </button>
           <h1 className="pt-3 text-2xl font-small text-gray-500">{partner}</h1>
-          <h2 className="pb-3 text-lg font-medium text-gray-500 border-b">
-            Partner Agreement Form
-          </h2>
+        
         </div>
       ) : null}
      
@@ -200,7 +197,7 @@ const Sidebar = ({
                             w-full text-left p-3 rounded-lg border
                             transition-all duration-200
                             ${isActive 
-                              ? 'border-sw-blue bg-blue-50/30' 
+                              ? 'border-sw-blue bg-blue-50' 
                               : 'border-gray-200 hover:border-sw-blue/30 bg-white'
                             }
                           `}
@@ -214,6 +211,7 @@ const Sidebar = ({
                                   task.status === 'draft' ? 'bg-sw-blue text-white' :
                                   'bg-gray-100'
                                 }
+                                ${isActive ? 'bg-sw-blue text-white' : 'bg- text-black' }
                               `}>
                                 {getTaskIcon(task)}
                               </div>

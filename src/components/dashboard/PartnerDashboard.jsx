@@ -21,7 +21,7 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
     tasksCompleted: 12,
     totalTasks: 47,
     pendingDocs: 2,
-    currentQuarter: 'Q1',
+    currentQuarter: 'Q4',
     year: '2024/25'
   };
 
@@ -35,7 +35,7 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
     },
     { 
       id: 2, 
-      title: 'Q1 Progress Update', 
+      title: 'Q4 Progress Update', 
       date: '2025-03-15',
       status: 'warning',
       type: 'review'
@@ -59,7 +59,7 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
     },
     {
       id: 2,
-      title: 'Q1 Accountability Log',
+      title: 'Q4 Accountability Log',
       status: 'Pending',
       lastUpdated: '2024-01-08',
       completion: 30
@@ -147,7 +147,7 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
         <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col text-center">
             <div className="flex items-center justify-center mb-2">
             <Clock className="h-5 w-5 text-sw-blue" />
-            <span className="ml-2 text-sm text-gray-500">Q1 Update Due In</span>
+            <span className="ml-2 text-sm text-gray-500">Q4 Update Due In</span>
             </div>
             <div className="flex-1 flex items-center justify-center">
             <div>

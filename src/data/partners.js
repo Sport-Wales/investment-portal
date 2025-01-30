@@ -51,7 +51,6 @@ export const partners = {
       { id: 'streetgames', name: 'StreetGames', sport: 'Multi-sport' },
       { id: 'disability-sport-wales', name: 'Disability Sport Wales', sport: 'Multi-sport' },
       { id: 'welsh-sports-association', name: 'Welsh Sports Association', sport: 'Multi-sport' },
-      { id: 'sportsaid-cymru', name: 'SportsAid Cymru Wales', sport: 'Multi-sport' },
       { id: 'girlguiding-cymru', name: 'Girlguiding Cymru', sport: 'Multi-sport' },
       { id: 'leadership-skills', name: 'Leadership Skills Foundation', sport: 'Multi-sport' },
       { id: 'udoit-dance', name: 'UDOIT Dance Foundation', sport: 'Dance' },
@@ -59,7 +58,7 @@ export const partners = {
       { id: 'youth-sport-trust', name: 'Youth Sport Trust', sport: 'Multi-sport' },
       { id: 'outdoor-partnership', name: 'The Outdoor Partnership', sport: 'Multi-sport' },
       { id: 'urdd', name: 'The Urdd', sport: 'Multi-sport' },
-      { id: 'welsh-football-trust', name: 'Welsh Football Trust', sport: 'Football' }
+      
     ],
     'Sport Partnerships': [
       { id: 'gwent-sp', name: 'Gwent Sport Partnership', sport: 'Multi-sport' },

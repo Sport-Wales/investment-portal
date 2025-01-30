@@ -61,39 +61,6 @@ const FinancialInformation = () => {
 
   return (
     <div className="space-y-8">
-      {/* Commitment Confirmation Section */}
-      <div className="bg-gray-100 rounded-lg p-6 border border-gray-200">
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Accountability Commitment</h3>
-          <p className="text-sm text-gray-600">
-            Partners are responsible for collating progress and learning on a minimum quarterly basis 
-            and meeting with Sport Wales to discuss this.
-          </p>
-          <div className="bg-amber-50 border-l-4 border-amber-400 p-4">
-            <p className="text-sm text-amber-700">
-              This forms part of your contractual agreement with Sport Wales and failure to comply 
-              with this will affect funding.
-            </p>
-          </div>
-          <div className="flex items-start mt-4">
-            <div className="flex items-center h-5">
-              <input
-                id="commitment"
-                type="checkbox"
-                checked={formData.commitmentConfirmed || false}
-                onChange={(e) => handleCommitmentChange(e.target.checked)}
-                className="h-6 w-6 mt-4 text-sw-blue focus:ring-sw-blue border-gray-300 rounded"
-              />
-            </div>
-            <label htmlFor="commitment" className="ml-3 text-sm">
-              <span className="font-medium text-gray-700">
-                Please confirm your commitment to completing Accountability, progress and learning 
-                and discussing this with Sport Wales
-              </span>
-            </label>
-          </div>
-        </div>
-      </div>
 
       {/* Rest of the existing Financial Information code remains unchanged */}
       <div className="bg-white rounded-lg border border-gray-200 p-6">
