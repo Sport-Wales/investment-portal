@@ -224,7 +224,7 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
 
           {/* Active Documents */}
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Active Documents</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Progress </h3>
             <div className="space-y-4">
               {documents.map(doc => (
                 <div key={doc.id} className="border rounded-lg p-4">

@@ -63,9 +63,10 @@ const Sidebar = ({
   };
 
   // Get appropriate icon based on task status and type
-  const getTaskIcon = (task) => {
+  const getTaskIcon = (task, isActive) => {
     if (task.documentType === DOCUMENT_TYPES.LIVING) {
-      return <RefreshCw className="w-4 h-4 text-sw-blue" />;
+      return <RefreshCw className={`w-4 h-4 ${isActive ? "text-white": "text-sw-blue"} `} />;
+     
     }
 
     if (task.status === 'completed') return <Check className="w-4 h-4" />;
@@ -213,7 +214,7 @@ const Sidebar = ({
                                 }
                                 ${isActive ? 'bg-sw-blue text-white' : 'bg- text-black' }
                               `}>
-                                {getTaskIcon(task)}
+                                {getTaskIcon(task, isActive)}
                               </div>
                               
                               <div>

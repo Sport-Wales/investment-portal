@@ -201,23 +201,6 @@ const InvestmentRequest = () => {
                   />
                 </FormField>
 
-                {/* Allocation */}
-                <FormField
-                  label="Allocation"
-                  helpText="Proposed investment allocation for this area"
-                >
-                  <div className="mt-1 relative rounded-md shadow-sm">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <PoundSterling className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="number"
-                      value={formData.workAreas?.[area.id]?.allocation || ''}
-                      onChange={(e) => handleWorkAreaChange(area.id, 'allocation', Number(e.target.value))}
-                      className="block w-full pl-10 pr-12 py-2 sm:text-sm border-gray-300 rounded-md focus:ring-sw-blue focus:border-sw-blue"
-                    />
-                  </div>
-                </FormField>
               </div>
             )}
           </div>
