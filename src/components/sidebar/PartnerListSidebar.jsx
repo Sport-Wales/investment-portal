@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
 
-const PartnerListSidebar = ({ partners, onPartnerSelect }) => {
+const PartnerListSidebar = ({ partners, onPartnerSelect, onBack }) => {
   const [search, setSearch] = useState('');
   const [expandedCategories, setExpandedCategories] = useState({
     'National Governing Bodies': true
@@ -31,6 +31,7 @@ const PartnerListSidebar = ({ partners, onPartnerSelect }) => {
     <div className="w-[520px] min-w-[520px] max-w-[520px] bg-white border-r flex flex-col h-full">
       {/* Search */}
       <div className="p-4 border-b">
+
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -mt-2 h-4 w-4 text-gray-400" />
           <input

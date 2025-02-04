@@ -11,8 +11,8 @@ const PARTNER_TOKENS = {
     role: 'partner'
   },
   'JkXaSWSJOQR': { 
-    name: 'Actif North Wales',
-    organisation: 'Actif North Wales',
+    name: 'West Wales Sport Partnership',
+    organisation: 'West Wales Sport Partnership',
     role: 'partner'
   }
 };

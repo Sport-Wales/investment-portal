@@ -71,6 +71,7 @@ const Portal = ({ user, onLogout }) => {
 
   const handleGoBack = () => {
     setSelectedPartner(null);
+    handleReturnToOverview ()
   };
 
    // Handle return to staff dashboard
@@ -140,6 +141,7 @@ const Portal = ({ user, onLogout }) => {
     if (user.role === 'staff' && !selectedPartner) {
       return (
         <PartnerListSidebar
+          onBack={handleGoBack}
           partners={partnerList}
           onPartnerSelect={handlePartnerSelect}
           onReturnToOverview={handleReturnToOverview}
