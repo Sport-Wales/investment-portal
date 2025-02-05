@@ -235,6 +235,8 @@ const CapabilityFramework = () => {
         }
       });
     };
+
+    
   
     const handleFileUpload = (requirementId, files) => {
       if (!files.length) return;
@@ -380,7 +382,7 @@ const CapabilityFramework = () => {
                 >
                   <textarea
                     value={data.comments || ''}
-                    // onChange={(e) => handleChange(requirement.id, 'comments', e.target.value)}
+                    onChange={(e) => handleChange(requirement.id, 'comments', e.target.value)}
                     rows={2}
                     className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
                     placeholder="Please explain how your organisation embeds this requirement..."
