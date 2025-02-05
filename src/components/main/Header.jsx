@@ -75,7 +75,7 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
           {/* Right side navigation items */}
           <div className="flex items-center space-x-6">
             {/* Notification Center - Only show for staff */}
-            {!isPartner && (
+            
               <NotificationCenter 
                 notifications={notifications}
                 isOpen={showNotifications}
@@ -84,7 +84,7 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
                 onClearAll={handleClearAll}
                 onClose={() => setShowNotifications(false)}
               />
-            )}
+            
             
             {/* User Menu */}
             <div className="relative">
