@@ -379,7 +379,7 @@ const CapabilityFramework = () => {
                   helpText="Please provide full comments explaining how you meet this requirement"
                 >
                   <textarea
-                    value={data.comments || ''}
+                    value={data.comments}
                     onChange={(e) => handleChange(requirement.id, 'comments', e.target.value)}
                     rows={4}
                     className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
