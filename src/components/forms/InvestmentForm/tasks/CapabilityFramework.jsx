@@ -379,12 +379,13 @@ const CapabilityFramework = () => {
                   helpText="Please provide full comments explaining how you meet this requirement"
                 >
                   <textarea
-                    value={data.comments}
-                    onChange={(e) => handleChange(requirement.id, 'comments', e.target.value)}
-                    rows={4}
+                    value={data.comments || ''}
+                    // onChange={(e) => handleChange(requirement.id, 'comments', e.target.value)}
+                    rows={2}
                     className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
                     placeholder="Please explain how your organisation embeds this requirement..."
                   />
+                 
                 </FormField>
   
                 {/* Evidence Upload */}
