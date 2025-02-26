@@ -57,6 +57,14 @@ const AccountabilityLog = () => {
   
     const handleTabChange =(id) =>{
         setActiveQuarter(id)
+        if(id == "q2") {
+          setActiveProgressPeriod('6month')
+          
+        }
+        if(id == "q4"){
+          
+          setActiveProgressPeriod('12month')
+        }
         for (let i = 0; i < quarters.length; i++) {
           if (quarters[i].id === id) {
             const title = quarters[i].title;
@@ -257,8 +265,9 @@ const AccountabilityLog = () => {
   
           {/* Feedback for Sport Wales */}
           <FormField
-            label="Feedback for Sport Wales"
-            description="Provide any feedback or suggestions for Sport Wales"
+            label="Sport Wales Comments "
+            description=""
+            // description="Provide any feedback or suggestions for Sport Wales"
           >
             <textarea
               value={formData[activeQuarter]?.feedback || ''}
@@ -269,7 +278,8 @@ const AccountabilityLog = () => {
           </FormField>
         </div>
 
-        {/* Progress Sign-off Section */}
+        {activeQuarter == "q2" ? 
+        <div>
           <div className="space-y-6 mt-8 bg-white rounded-lg border border-gray-200">
             <div className="border-b border-gray-200">
               <nav className="flex">
@@ -283,17 +293,6 @@ const AccountabilityLog = () => {
                   `}
                 >
                   <span className="font-semibold">6-Month Progress</span>
-                </button>
-                <button
-                  onClick={() => setActiveProgressPeriod('12month')}
-                  className={`
-                    py-4 px-6 text-m font-medium border-b-4 transition-colors duration-200
-                    ${activeProgressPeriod === '12month' 
-                      ? 'border-sw-blue text-sw-blue'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
-                  `}
-                >
-                  <span className="font-semibold">12-Month Progress</span>
                 </button>
               </nav>
             </div>
@@ -363,7 +362,7 @@ const AccountabilityLog = () => {
               </div>
 
               {/* Period Specific Questions */}
-              {activeProgressPeriod === '6month' ? (
+            
                 <div className="space-y-6 mt-6">
                   <div className="bg-sw-blue bg-opacity-5 p-4 rounded-lg">
                     <h4 className="text-m font-medium text-sw-blue">6-Month Review Areas</h4>
@@ -395,87 +394,7 @@ const AccountabilityLog = () => {
                     />
                   </FormField>
                 </div>
-              ) : (
-                <div className="space-y-6 mt-6">
-                  <div className="bg-sw-blue bg-opacity-5 p-4 rounded-lg">
-                    <h4 className="text-m font-medium text-sw-blue">12-Month Review Areas</h4>
-                  </div>
-
-                  <FormField
-                    label="Annual Underspend Assessment"
-                    description="Review of annual financial position and underspend"
-                  >
-                    <textarea
-                      value={formData['12month']?.annualUnderspend || ''}
-                      onChange={(e) => handleChange('12month', 'annualUnderspend', e.target.value)}
-                      rows={3}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
-                      placeholder="Detail the annual underspend position..."
-                    />
-                  </FormField>
-
-                  <div className="space-y-4">
-                    <div className="flex items-center my-8 justify-between p-4 bg-gray-50 rounded-lg">
-                      <label className="text-sm text-gray-700">
-                        Request to carry forward underspend to next year?
-                      </label>
-                      <div className="flex items-center space-x-4">
-                        <label className="inline-flex items-center">
-                          <input
-                            type="radio"
-                            className="form-radio py-2 text-sw-blue h-4 w-4"
-                            name="carryForward"
-                            value="yes"
-                            checked={formData['12month']?.carryForwardRequest === 'yes'}
-                            onChange={(e) => handleChange('12month', 'carryForwardRequest', e.target.value)}
-                          />
-                          <span className="ml-2 text-sm">Yes</span>
-                        </label>
-                        <label className="inline-flex items-center">
-                          <input
-                            type="radio"
-                            className="form-radio py-2 text-sw-blue h-4 w-4"
-                            name="carryForward"
-                            value="no"
-                            checked={formData['12month']?.carryForwardRequest === 'no'}
-                            onChange={(e) => handleChange('12month', 'carryForwardRequest', e.target.value)}
-                          />
-                          <span className="ml-2 text-sm">No</span>
-                        </label>
-                      </div>
-                  </div>
-
-                    
-                  <FormField
-                    label="Current Underspend Review"
-                    description="Review current financial position and any underspend concerns"
-                  >
-                    <textarea
-                      value={formData['6month']?.underspendCheck || ''}
-                      onChange={(e) => handleChange('6month', 'underspendCheck', e.target.value)}
-                      rows={3}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
-                      placeholder="Detail any current underspend issues..."
-                    />
-                  </FormField>
-
-                    {formData['12month']?.carryForwardRequest === 'yes' && (
-                      <FormField
-                        label="Carry Forward Details"
-                        description="Provide details and justification for carry forward request"
-                      >
-                        <textarea
-                          value={formData['12month']?.carryForwardDetails || ''}
-                          onChange={(e) => handleChange('12month', 'carryForwardDetails', e.target.value)}
-                          rows={3}
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
-                          placeholder="Provide details and justification for the carry forward request..."
-                        />
-                      </FormField>
-                    )}
-                  </div>
-                </div>
-              )}
+          
 
               {/* Comments Section */}
               <FormField
@@ -538,6 +457,245 @@ const AccountabilityLog = () => {
               </div>
             </div>
           </div>
+        </div>
+        
+        : null}
+
+
+
+        {activeQuarter == "q4" ? 
+        <div>
+        <div className="space-y-6 mt-8 bg-white rounded-lg border border-gray-200">
+          <div className="border-b border-gray-200">
+            <nav className="flex">
+             
+              <button
+                onClick={() => setActiveProgressPeriod('12month')}
+                className={`
+                  py-4 px-6 text-m font-medium border-b-4 transition-colors duration-200
+                  ${activeProgressPeriod === '12month' 
+                    ? 'border-sw-blue text-sw-blue'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
+                `}
+              >
+                <span className="font-semibold">12-Month Progress</span>
+              </button>
+            </nav>
+          </div>
+
+          <div className="p-6 space-y-6">
+            {/* Common Progress Questions */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <label className="text-sm text-gray-700">
+                  Has the partner regularly discussed and completed the progress and learning log?
+                </label>
+                <div className="flex items-center space-x-4">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      className="form-radio text-sw-blue h-4 w-4"
+                      name={`progressLog-${activeProgressPeriod}`}
+                      value="yes"
+                      checked={formData[activeProgressPeriod]?.progressLogComplete === 'yes'}
+                      onChange={(e) => handleChange(activeProgressPeriod, 'progressLogComplete', e.target.value)}
+                    />
+                    <span className="ml-2 text-sm">Yes</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      className="form-radio text-sw-blue h-4 w-4"
+                      name={`progressLog-${activeProgressPeriod}`}
+                      value="no"
+                      checked={formData[activeProgressPeriod]?.progressLogComplete === 'no'}
+                      onChange={(e) => handleChange(activeProgressPeriod, 'progressLogComplete', e.target.value)}
+                    />
+                    <span className="ml-2 text-sm">No</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <label className="text-sm text-gray-700">
+                  Is the partner continuing to progress against their Governance Improvement Plan?
+                </label>
+                <div className="flex items-center space-x-4">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      className="form-radio text-sw-blue h-4 w-4"
+                      name={`governancePlan-${activeProgressPeriod}`}
+                      value="yes"
+                      checked={formData[activeProgressPeriod]?.governancePlanProgress === 'yes'}
+                      onChange={(e) => handleChange(activeProgressPeriod, 'governancePlanProgress', e.target.value)}
+                    />
+                    <span className="ml-2 text-sm">Yes</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      className="form-radio text-sw-blue h-4 w-4"
+                      name={`governancePlan-${activeProgressPeriod}`}
+                      value="no"
+                      checked={formData[activeProgressPeriod]?.governancePlanProgress === 'no'}
+                      onChange={(e) => handleChange(activeProgressPeriod, 'governancePlanProgress', e.target.value)}
+                    />
+                    <span className="ml-2 text-sm">No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Period Specific Questions */}
+          
+              <div className="space-y-6 mt-6">
+                <div className="bg-sw-blue bg-opacity-5 p-4 rounded-lg">
+                  <h4 className="text-m font-medium text-sw-blue">12-Month Review Areas</h4>
+                </div>
+
+                <FormField
+                  label="Annual Underspend Assessment"
+                  description="Review of annual financial position and underspend"
+                >
+                  <textarea
+                    value={formData['12month']?.annualUnderspend || ''}
+                    onChange={(e) => handleChange('12month', 'annualUnderspend', e.target.value)}
+                    rows={3}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
+                    placeholder="Detail the annual underspend position..."
+                  />
+                </FormField>
+
+                <div className="space-y-4">
+                  <div className="flex items-center my-8 justify-between p-4 bg-gray-50 rounded-lg">
+                    <label className="text-sm text-gray-700">
+                      Request to carry forward underspend to next year?
+                    </label>
+                    <div className="flex items-center space-x-4">
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          className="form-radio py-2 text-sw-blue h-4 w-4"
+                          name="carryForward"
+                          value="yes"
+                          checked={formData['12month']?.carryForwardRequest === 'yes'}
+                          onChange={(e) => handleChange('12month', 'carryForwardRequest', e.target.value)}
+                        />
+                        <span className="ml-2 text-sm">Yes</span>
+                      </label>
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          className="form-radio py-2 text-sw-blue h-4 w-4"
+                          name="carryForward"
+                          value="no"
+                          checked={formData['12month']?.carryForwardRequest === 'no'}
+                          onChange={(e) => handleChange('12month', 'carryForwardRequest', e.target.value)}
+                        />
+                        <span className="ml-2 text-sm">No</span>
+                      </label>
+                    </div>
+                </div>
+
+                  
+                <FormField
+                  label="Current Underspend Review"
+                  description="Review current financial position and any underspend concerns"
+                >
+                  <textarea
+                    value={formData['6month']?.underspendCheck || ''}
+                    onChange={(e) => handleChange('6month', 'underspendCheck', e.target.value)}
+                    rows={3}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
+                    placeholder="Detail any current underspend issues..."
+                  />
+                </FormField>
+
+                  {formData['12month']?.carryForwardRequest === 'yes' && (
+                    <FormField
+                      label="Carry Forward Details"
+                      description="Provide details and justification for carry forward request"
+                    >
+                      <textarea
+                        value={formData['12month']?.carryForwardDetails || ''}
+                        onChange={(e) => handleChange('12month', 'carryForwardDetails', e.target.value)}
+                        rows={3}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
+                        placeholder="Provide details and justification for the carry forward request..."
+                      />
+                    </FormField>
+                  )}
+                </div>
+              </div>
+
+
+            {/* Comments Section */}
+            <FormField
+              label="Comments"
+              description="Are there any concerns or significant updates/risks involving the partner?"
+            >
+              <textarea
+                value={formData[activeProgressPeriod]?.comments || ''}
+                onChange={(e) => handleChange(activeProgressPeriod, 'comments', e.target.value)}
+                rows={4}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
+                placeholder="Detail any concerns or significant updates..."
+              />
+            </FormField>
+
+            {/* Sign Off Section */}
+            <div className="mt-8 space-y-6">
+              <div className="border-t pt-6">
+                <h4 className="text-base font-medium text-gray-900">Sign Off</h4>
+                <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <FormField label="Sport Wales Officer sign of (name)">
+                    <input
+                      type="text"
+                      value={formData[activeProgressPeriod]?.officerName || ''}
+                      onChange={(e) => handleChange(activeProgressPeriod, 'officerName', e.target.value)}
+                      className="mt-1 block w-full py-2 rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue sm:text-sm"
+                      placeholder="Enter officer name"
+                    />
+                  </FormField>
+                  <FormField label="Date">
+                    <input
+                      type="date"
+                      value={formData[activeProgressPeriod]?.officerDate || ''}
+                      onChange={(e) => handleChange(activeProgressPeriod, 'officerDate', e.target.value)}
+                      className="mt-1 block w-full  py-2  rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue sm:text-sm"
+                    />
+                  </FormField>
+                </div>
+
+                <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <FormField label="AD/ HoS sign off (name)">
+                    <input
+                      type="text"
+                      value={formData[activeProgressPeriod]?.hosName || ''}
+                      onChange={(e) => handleChange(activeProgressPeriod, 'hosName', e.target.value)}
+                      className="mt-1 block w-full  py-2 rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue sm:text-sm"
+                      placeholder="Enter AD/HoS name"
+                    />
+                  </FormField>
+                  <FormField label="Date">
+                    <input
+                      type="date"
+                      value={formData[activeProgressPeriod]?.hosDate || ''}
+                      onChange={(e) => handleChange(activeProgressPeriod, 'hosDate', e.target.value)}
+                      className="mt-1 block w-full  py-2 rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue sm:text-sm"
+                    />
+                  </FormField>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        : null}
+
+        {/* Progress Sign-off Section */}
+          
       </div>
     );
   };

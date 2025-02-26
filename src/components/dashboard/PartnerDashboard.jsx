@@ -2,6 +2,8 @@
 import React from 'react';
 import { 
   Calendar, 
+  User,
+  Mail,
   Clock, 
   AlertTriangle, 
   FileText, 
@@ -89,7 +91,7 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
     <div className="max-w-7xl mx-auto space-y-6">
       {/* Progress Overview Section */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {/* Progress Circle */}
+        {/* Progress Circle
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex flex-col items-center">
             <div className="relative w-32 h-32">
@@ -123,13 +125,13 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
             </div>
             <span className="mt-4 text-sm font-medium text-gray-600">Overall Progress</span>
           </div>
-        </div>
+        </div> */}
 
       
         {/* Stats Grid */}
-        <div className="col-span-3 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="col-span-3 grid grid-cols-2 md:grid-cols-3 gap-4 items-center justify-center">
         {/* Current Investment Period */}
-        <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col text-center">
+        {/* <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col text-center">
             <div className="flex items-center justify-center mb-2">
             <Calendar className="h-5 w-5 text-sw-blue" />
             <span className="ml-2 text-sm text-gray-500">Current Period</span>
@@ -140,7 +142,7 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
                 <span className="block text-sm text-gray-500">{progressStats.year}</span>
             </div>
             </div>
-        </div>
+        </div> */}
         
 
         {/* Quarterly Update Deadline */}
@@ -204,11 +206,10 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
               {timelineEvents.map(event => (
                 <div 
                   key={event.id}
-                  className={`flex items-center p-4 rounded-lg border ${
-                    event.status === 'urgent' ? 'bg-red-50 border-sw-red' :
-                    event.status === 'warning' ? 'bg-amber-50 border-sw-yellow' :
-                    'bg-green-50 border-sw-green'
-                  }`}
+                  className={`flex items-center p-4 rounded-lg border 
+                    
+                  `
+                }
                 >
                   <div className="flex-1">
                     <h4 className="font-medium text-gray-900">{event.title}</h4>
@@ -308,6 +309,41 @@ const PartnerDashboard = ({ tasks, notifications, onTaskSelect }) => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+
+          {/* Point of Contact */}
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Point of Contact</h3>
+
+            <div className="space-y-4">
+            <div className="flex items-start p-4 bg-gray-50 rounded-lg">
+                <Mail className="h-5 w-5 text-sw-blue mt-0.5" />
+                <div className="ml-3">
+                  <h4 className="font-medium mb-2 text-gray-900">
+                    Have a question? Get in touch below
+                  </h4>
+                </div>
+              </div>
+              <div className="flex items-start p-4 bg-gray-50 rounded-lg">
+                <User className="h-5 w-5 text-sw-blue mt-0.5" />
+                <div className="ml-3">
+                  <h4 className="font-medium mb-2 text-gray-900">
+                    Jane Cooper
+                  </h4>
+                  <a 
+                    href="mailto:investment@sportwales.org" 
+                    className="text-sm text-sw-blue hover:underline inline-block"
+                  >
+
+                  <p className="text-sm text-sw-blue mt-2">
+                    jane.cooper@sports.org
+                  </p>
+                  </a>
+                </div>
+              </div>
+              
             </div>
           </div>
         </div>
