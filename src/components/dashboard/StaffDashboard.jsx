@@ -10,8 +10,29 @@ import {
   HelpCircle,
   X,
   Clock,
-  ChevronRight
+  ChevronRight,
+  Info // Added for annotation icons
 } from 'lucide-react';
+
+// Annotation component
+const AnnotationIcon = ({ id, note, className='' }) => {
+  const [isHovering, setIsHovering] = useState(false);
+  
+  return (
+    <div className="relative inline-flex">
+      <Info 
+        className={`h-10 w-10 text-sw-green ${className}`}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      />
+      {isHovering && (
+        <div className="absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 left-full ml-2">
+          {note}
+        </div>
+      )}
+    </div>
+  );
+};
 
 // Add this to the mock data section
 const followUps = [
@@ -158,18 +179,42 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
     </div>
   );
 
-  {/* Overview Stats */}
   return (
     <div className="max-w-7xl mx-auto space-y-6">
+      {/* Dashboard Header with Annotation #1 */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-gray-900">Staff Dashboard</h1>
+        <AnnotationIcon 
+          id="dashboard-default" 
+          note="The dashboard overview should default to the staff member's portfolio of partners i.e. showing the partners which are relevant to them" 
+        />
+      </div>
+
       {/* Overview Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <StatCard
-          icon={Users}
-          title="Total Partners"
-          count={dashboardStats.partners.count}
-          color="bg-blue-10 text-sw-blue"
-    
-        />
+        {/* Total Partners Card with Annotations #5 & #6 */}
+        <div className="relative">
+          
+          <StatCard
+            icon={Users}
+            title="Total Partners"
+            count={dashboardStats.partners.count}
+            color="bg-blue-10 text-sw-blue"
+          />
+          <div className='absolute right-0 top-0'>
+
+          <AnnotationIcon 
+              className='mr-4'
+              id="filter-dropdown" 
+              note="Dropdown option to enable user to select which partners the dashboard displays information on. The dashboard will then only show information related to the partners selected." 
+              />
+            <AnnotationIcon 
+              id="rm-filter" 
+              note="A dropdown to be able to filter partner by relationship manager/SW staff. The dashboard will then only show information related to the partners under that relationship manager." 
+              />
+          </div>
+        </div>
+        
 
         <StatCard
           icon={CheckCircle}
@@ -178,20 +223,24 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
           color="bg-green-50 text-sw-green"
           onClick={() => setActiveModal('signedOff')}
         />
-        <StatCard
-          icon={AlertTriangle}
-          title="At Risk"
-          count={dashboardStats.atRisk.count}
-          color="bg-red-50 text-sw-red"
-          onClick={() => setActiveModal('atRisk')}
-        />
-        {/* <StatCard
-          icon={Calendar}
-          title="Meeting Requests"
-          count={dashboardStats.meetingRequests.count}
-          color="bg-amber-50 text-sw-yellow"
-          onClick={() => setActiveModal('meetings')}
-        /> */}
+        
+        {/* At Risk Card with Annotation #2 */}
+        <div className="relative">
+          <StatCard
+            icon={AlertTriangle}
+            title="At Risk"
+            count={dashboardStats.atRisk.count}
+            color="bg-red-50 text-sw-red"
+            onClick={() => setActiveModal('atRisk')}
+          />
+          <div className="absolute right-0 top-0">
+            <AnnotationIcon 
+              id="at-risk-note" 
+              note="This will be removed but will be integrated into 'Partner Progress Indicator' section" 
+            />
+          </div>
+        </div>
+
         <StatCard
           icon={HelpCircle}
           title="Need Support"
@@ -205,43 +254,44 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Follow-ups */}
         <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-6">Required Follow-ups</h2>
-        <div className="space-y-4">
+          <h2 className="text-lg font-semibold text-gray-900 mb-6">Required Follow-ups</h2>
+          <div className="space-y-4">
             {followUps.map(followUp => (
-            <div key={followUp.id} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div key={followUp.id} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
                 <div className="flex justify-between items-start">
-                <div className="flex-1">
+                  <div className="flex-1">
                     <div className="flex items-center">
-                    <h3 className="font-medium text-gray-900">{followUp.partner}</h3>
-                    {/* <span className={`ml-3 px-2 py-1 text-xs rounded-full ${
-                        followUp.priority === 'high' ? 'bg-red-100 text-red-800' :
-                        followUp.priority === 'medium' ? 'bg-amber-100 text-amber-800' :
-                        'bg-blue-100 text-blue-800'
-                    }`}>
-                        {followUp.priority} priority
-                    </span> */}
+                      <h3 className="font-medium text-gray-900">{followUp.partner}</h3>
                     </div>
                     <p className="text-sm text-gray-600 mt-1">{followUp.task}</p>
                     <div className="flex items-center mt-2 text-sm text-gray-500">
-                    <Clock className="h-4 w-4 mr-1" />
-                    Due: {new Date(followUp.dueDate).toLocaleDateString()}
-                    <span className="mx-2">•</span>
-                    <Users className="h-4 w-4 mr-1" />
-                    {followUp.assignedTo}
+                      <Clock className="h-4 w-4 mr-1" />
+                      Due: {new Date(followUp.dueDate).toLocaleDateString()}
+                      <span className="mx-2">•</span>
+                      <Users className="h-4 w-4 mr-1" />
+                      {followUp.assignedTo}
                     </div>
-                </div>
-                <button className="ml-4 text-sw-blue hover:text-sw-blue-dark">
+                  </div>
+                  <button className="ml-4 text-sw-blue hover:text-sw-blue-dark">
                     <ChevronRight className="h-5 w-5" />
-                </button>
+                  </button>
                 </div>
-            </div>
+              </div>
             ))}
-        </div>
+          </div>
         </div>
 
-        {/* Scheduled Meetings */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">Upcoming Meetings</h2>
+        {/* Scheduled Meetings with Annotation #4 */}
+        <div className="bg-white rounded-lg shadow-sm p-6 relative">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-lg font-semibold text-gray-900">Upcoming Meetings</h2>
+            <div className="absolute right-6 top-6">
+              <AnnotationIcon 
+                id="meetings-outlook" 
+                note="If this is possible Upcoming meetings display will need to link to the user's meetings/Outlook. Need to be able to set up meeting on the dashboard and in our outlook/teams and see the meeting that are coming up" 
+              />
+            </div>
+          </div>
           <div className="space-y-4">
             {upcomingMeetings.map(meeting => (
               <div 
@@ -272,15 +322,20 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
             ))}
           </div>
         </div>
-
-
-        
       </div>
 
-      {/* Partner Activity Section */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
+      {/* Partner Activity Section with Annotation #3 */}
+      <div className="bg-white rounded-lg shadow-sm p-6 relative">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-gray-900">Partner Progress indicator</h2>
+          <div className="flex items-center">
+            <h2 className="text-lg font-semibold text-gray-900">Partner Progress indicator</h2>
+            <div className="ml-2">
+              <AnnotationIcon 
+                id="progress-tasks" 
+                note="The Partner progress indicator should become 'Outstanding partner tasks'. A drilldown or hover to see more detail and the deadline date. Be able to click on the task outstanding will take you to that task. (We no longer want this to be a progress indicator; it needs to show tasks still to be completed and tasks that are at risk of not being completed before the deadline)" 
+              />
+            </div>
+          </div>
           <select className="text-sm border-gray-300 rounded-md">
             <option>Last 7 days</option>
             <option>Last 30 days</option>
@@ -338,115 +393,77 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
       )}
 
       {/* At Risk Modal */}
-        {activeModal === 'atRisk' && (
+      {activeModal === 'atRisk' && (
         <Modal
-            title="At Risk Partners"
-            icon={AlertTriangle}
-            color="bg-red-50 text-sw-red"
-            onClose={() => setActiveModal(null)}
+          title="At Risk Partners"
+          icon={AlertTriangle}
+          color="bg-red-50 text-sw-red"
+          onClose={() => setActiveModal(null)}
         >
-            <div className="space-y-4">
+          <div className="space-y-4">
             {dashboardStats.atRisk.partners.map(partner => (
-                <div 
+              <div 
                 key={partner.id}
                 onClick={() => onPartnerSelect(partner.id)}
                 className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer border border-red-100"
-                >
+              >
                 <div className="flex justify-between items-start">
-                    <div>
+                  <div>
                     <h3 className="font-medium text-gray-900">{partner.name}</h3>
                     <p className="text-sm text-red-600 mt-1">{partner.status}</p>
                     <p className="text-sm text-gray-500 mt-1">
-                        Deadline: {new Date(partner.date).toLocaleDateString()}
+                      Deadline: {new Date(partner.date).toLocaleDateString()}
                     </p>
-                    </div>
-                    <ChevronRight className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <ChevronRight className="h-5 w-5 text-gray-400" />
                 </div>
-                </div>
+              </div>
             ))}
-            </div>
+          </div>
         </Modal>
-        )}
+      )}
 
-        {/* Meeting Requests Modal */}
-        {activeModal === 'meetings' && (
+      {/* Need Support Modal */}
+      {activeModal === 'support' && (
         <Modal
-            title="Meeting Requests"
-            icon={Calendar}
-            color="bg-amber-50 text-sw-yellow"
-            onClose={() => setActiveModal(null)}
+          title="Partners Needing Support"
+          icon={HelpCircle}
+          color="bg-blue-50 text-sw-blue"
+          onClose={() => setActiveModal(null)}
         >
-            <div className="space-y-4">
-            {dashboardStats.meetingRequests.partners.map(partner => (
-                <div 
-                key={partner.id}
-                className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer border border-amber-100"
-                >
-                <div className="flex justify-between items-start">
-                    <div>
-                    <h3 className="font-medium text-gray-900">{partner.name}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{partner.status}</p>
-                    <p className="text-sm text-gray-500 mt-1">
-                        Requested for: {new Date(partner.date).toLocaleDateString()}
-                    </p>
-                    </div>
-                    <div className="flex space-x-2">
-                    <button 
-                        className="px-3 py-1 bg-sw-blue text-white text-sm rounded-md hover:bg-opacity-90"
-                        onClick={() => {/* Handle scheduling */}}
-                    >
-                        Schedule
-                    </button>
-                    <ChevronRight className="h-5 w-5 text-gray-400" />
-                    </div>
-                </div>
-                </div>
-            ))}
-            </div>
-        </Modal>
-        )}
-
-        {/* Need Support Modal */}
-        {activeModal === 'support' && (
-        <Modal
-            title="Partners Needing Support"
-            icon={HelpCircle}
-            color="bg-blue-50 text-sw-blue"
-            onClose={() => setActiveModal(null)}
-        >
-            <div className="space-y-4">
+          <div className="space-y-4">
             {dashboardStats.needSupport.partners.map(partner => (
-                <div 
+              <div 
                 key={partner.id}
                 onClick={() => onPartnerSelect(partner.id)}
                 className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer border border-blue-100"
-                >
+              >
                 <div className="flex justify-between items-start">
-                    <div>
+                  <div>
                     <h3 className="font-medium text-gray-900">{partner.name}</h3>
                     <p className="text-sm text-blue-600 mt-1">{partner.status}</p>
                     <p className="text-sm text-gray-500 mt-1">
-                        Requested: {new Date(partner.date).toLocaleDateString()}
+                      Requested: {new Date(partner.date).toLocaleDateString()}
                     </p>
-                    </div>
-                    <div className="flex items-center space-x-2">
+                  </div>
+                  <div className="flex items-center space-x-2">
                     <button 
-                        className="px-3 py-1 bg-sw-blue text-white text-sm rounded-md hover:bg-opacity-90"
-                        onClick={(e) => {
+                      className="px-3 py-1 bg-sw-blue text-white text-sm rounded-md hover:bg-opacity-90"
+                      onClick={(e) => {
                         e.stopPropagation();
                         // Handle contact action
-                        }}
+                      }}
                     >
-                        Contact
+                      Contact
                     </button>
                     <ChevronRight className="h-5 w-5 text-gray-400" />
-                    </div>
+                  </div>
                 </div>
-                </div>
+              </div>
             ))}
-            </div>
+          </div>
         </Modal>
-        )}
+      )}
     </div>
   );
 };

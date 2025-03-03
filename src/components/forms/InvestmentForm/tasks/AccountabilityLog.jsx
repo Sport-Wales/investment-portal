@@ -25,6 +25,27 @@ const progressPeriods = [
   { id: '12month', title: '12-Month Progress' }
 ]
 
+
+// Annotation component
+const AnnotationIcon = ({ id, note, className='' }) => {
+  const [isHovering, setIsHovering] = useState(false);
+  
+  return (
+    <div className="relative inline-flex">
+      <Info 
+        className={`h-8 w-8 text-sw-green ${className}`}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      />
+      {isHovering && (
+        <div className="absolute  z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-4 text-sm text-gray-700 left-full ml-2">
+          {note}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const AccountabilityLog = () => {
     const { state, dispatch } = useForm();
     const [activeQuarter, setActiveQuarter] = useState('q4');
@@ -137,6 +158,22 @@ const AccountabilityLog = () => {
         </div>
   
         <QuarterTabs />
+        <div className='flex justify-start gap-4 '>
+
+        <AnnotationIcon 
+          id="Progress and Learning " 
+          note="Users need to be able to leave comments, provide feedback and tag other people on this page" 
+          />
+        <AnnotationIcon 
+        id="area of focus " 
+        note="These quarter sections will need to have pulled across relevant 'areas of focus' and 'conditions' into appropriate parts of the year " 
+        />
+        <AnnotationIcon 
+          id="bi monthly " 
+          note="For some users/partners, there will need to be 'bi-monthly' sections, rather than quarters" 
+          />
+
+        </div>
   
         {/* Work Areas Accordion */}
         <div className="space-y-4 mt-6">

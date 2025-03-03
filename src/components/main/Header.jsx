@@ -1,9 +1,31 @@
 // // src/components/main/Header.jsx
 import React, { useState } from 'react';
-import { LogOut, User, ChevronDown, Globe, LayoutDashboard } from 'lucide-react';
+import { LogOut, User, ChevronDown, Globe, LayoutDashboard, Info } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import NotificationCenter from './NotificationCenter';
 import { isPartnerView, getPartnerDetails } from '../../utils/roleHelpers';
+
+
+  // Annotation component
+  const AnnotationIcon = ({ id, note, className='' }) => {
+    const [isHovering, setIsHovering] = useState(false);
+    
+    return (
+      <div className="relative inline-flex">
+        <Info 
+          className={`h-8 w-8 text-sw-green  ${className}`}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        />
+        {isHovering && (
+          <div className="absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 left-full ml-2">
+            {note}
+          </div>
+        )}
+      </div>
+    );
+  };
+
 
 const Header = ({ user, notifications: initialNotifications = [], onLogout }) => {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -71,9 +93,15 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
               )}
             </div>
           </div>
+
+
   
           {/* Right side navigation items */}
           <div className="flex items-center space-x-6">
+          <AnnotationIcon
+            id="bell nofitication" 
+            note="This should also link to email notifications and help inform user when changes/submissions have been made " 
+          />
             {/* Notification Center - Only show for staff */}
             
               <NotificationCenter 
@@ -105,10 +133,9 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
                 </div>
                 <ChevronDown className="w-4 h-4 text-gray-400" />
               </button>
-  
               {/* User Dropdown Menu */}
               {showUserMenu && (
-                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                <div className="absolute z-50 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                   <div className="py-1">
                     <button
                       onClick={() => setShowUserMenu(false)}
@@ -132,8 +159,14 @@ const Header = ({ user, notifications: initialNotifications = [], onLogout }) =>
                     </button>
                   </div>
                 </div>
+
               )}
             </div>
+            <AnnotationIcon
+                className=''
+                id="bell nofitication" 
+                note="dropdown options should take the user to their settings and preferences where they can select things such as notification preferences. " 
+              />
   
             {/* Language Toggle */}
             <button

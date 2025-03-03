@@ -1,7 +1,30 @@
 import React, { useState } from 'react';
 import { useForm } from '../../../../context/FormContext';
 import FormField from '../shared/FormField';
-import { Calendar, Mail, Building, User, FileText, PoundSterling, Check } from 'lucide-react';
+import { Calendar, Mail, Building, User, FileText, PoundSterling, Check, Info } from 'lucide-react';
+
+
+
+ // Annotation component
+ const AnnotationIcon = ({ id, note, className='' }) => {
+  const [isHovering, setIsHovering] = useState(false);
+  
+  return (
+    <div className="relative inline-flex">
+      <Info 
+        className={`h-8 w-8 text-sw-green cursor-help ${className}`}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      />
+      {isHovering && (
+        <div className="absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 left-full ml-2">
+          {note}
+        </div>
+      )}
+    </div>
+  );
+};
+
 
 const OfferLetter = () => {
   const { state, dispatch } = useForm();
@@ -214,7 +237,15 @@ const OfferLetter = () => {
 
           {/* Payment Conditions Section */}
           <div className="bg-gray-50 p-8 rounded-lg border border-gray-100">
+            <div className='flex'>
+
             <h3 className="text-xl font-semibold mb-8 text-gray-900">2. Payment Conditions:</h3>
+            <AnnotationIcon 
+                        className='ml-2'
+                        id="staff-only" 
+                        note="This will need to have pulled across the conditions which had been inputted in the evaluation section under 'staff assessment'" 
+                      />
+            </div>
             
             {/* Display Evaluation Conditions */}
             {state.formData.evaluation?.conditions && (
@@ -364,6 +395,11 @@ const OfferLetter = () => {
                       <span className="ml-3 text-sm text-gray-700">
                         I accept the terms and conditions
                       </span>
+                      <AnnotationIcon 
+                        className='ml-2'
+                        id="staff-only" 
+                        note="This page should only be editable for SW staff members" 
+                      />
                     </label>
 
                       {/* Accept Offer Section */}

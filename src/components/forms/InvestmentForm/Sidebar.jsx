@@ -14,7 +14,8 @@ import {
   Calendar,
   History,
   RefreshCw,
-  Home
+  Home,
+  Info
 } from 'lucide-react';
 
 // Financial years available in the system
@@ -23,6 +24,26 @@ const financialYears = [
   { id: '2024-25', label: '2024/25', status: 'completed' },
   { id: '2025-26', label: '2025/26', status: 'current' }
 ];
+
+// Annotation component
+const AnnotationIcon = ({ id, note, className='' }) => {
+  const [isHovering, setIsHovering] = useState(false);
+  
+  return (
+    <div className="relative inline-flex">
+      <Info 
+        className={`h-8 w-8 text-sw-green  ${className}`}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      />
+      {isHovering && (
+        <div className="absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 left-full ml-2">
+          {note}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Sidebar = ({ 
   currentView,
@@ -141,6 +162,11 @@ const Sidebar = ({
                 : ' text-gray-900'} text-gray-900`}>Dashboard</span>
           </button>
         </div>
+        <AnnotationIcon
+        className='ml-3 m-1'
+            id="Sidebar" 
+            note="When a user completes a section, such as 'The Partnership' submission, it visually shows that it's no longer needing to be populated with information but should still be accessible. " 
+          />
         <div className="p-4 space-y-4">
           {Object.entries(taskSections).map(([sectionTitle, section]) => {
             const isLivingSection = section.type === DOCUMENT_TYPES.LIVING;

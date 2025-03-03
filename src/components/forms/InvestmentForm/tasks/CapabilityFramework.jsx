@@ -215,6 +215,26 @@ const capabilityFrameworkData = {
 };
 
 
+  // Annotation component
+  const AnnotationIcon = ({ id, note, className='' }) => {
+    const [isHovering, setIsHovering] = useState(false);
+    
+    return (
+      <div className="relative inline-flex">
+        <Info 
+          className={`h-8 w-8 text-sw-green  ${className}`}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        />
+        {isHovering && (
+          <div className="absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 left-full ml-2">
+            {note}
+          </div>
+        )}
+      </div>
+    );
+  };
+
 
 const CapabilityFramework = () => {
     const { state, dispatch } = useForm();
@@ -357,6 +377,13 @@ const CapabilityFramework = () => {
   
               {/* Assessment Section */}
               <div className="space-y-6">
+              <AnnotationIcon 
+                  id="current status" 
+                  note="If user selects 'help needed', it will trigger a notification to chosen people such as the SW Governance Team or RM" 
+                />
+                
+                
+
                 {/* Status Selection */}
                 <FormField
                   label="Current Status"
@@ -471,7 +498,10 @@ const CapabilityFramework = () => {
               Total Requirements: {calculateOverallStats().total}
             </div>
           </div>
-          
+          <AnnotationIcon 
+            id="Framework Progress" 
+            note="Depending on the 'status' which the partner user chooses against each core requirement, an automatic population of the 'Governance Improvement Plan' should take place, pulling in there comments" 
+          />
           <div className="flex justify-around items-center">
             {[
               { 
@@ -636,10 +666,14 @@ const CapabilityFramework = () => {
         </div>
     
         {/* Help Section */}
+        
         <div className="mt-8 bg-blue-50 rounded-lg p-6 border border-blue-100">
+          
           <div className="flex">
+            
             <HelpCircle className="h-5 w-5 text-sw-blue flex-shrink-0" />
             <div className="ml-3">
+
               <h4 className="text-sm font-medium text-sw-blue">Need Support?</h4>
               <div className="mt-2 text-sm text-gray-600">
                 <p>
@@ -649,7 +683,14 @@ const CapabilityFramework = () => {
               </div>
             </div>
           </div>
+          
         </div>
+        <AnnotationIcon
+            className='mt-2'
+            id="Need for support" 
+            note="As well as including an e-mail address, this will need to include links to other supporting resources" 
+          />
+        
       </div>
     );
   };

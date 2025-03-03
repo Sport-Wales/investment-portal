@@ -48,11 +48,35 @@ const assessmentAreas = [
   }
 ];
 
+
+
+
+
 const Evaluation = () => {
   const { state, dispatch } = useForm();
   const [expandedSection, setExpandedSection] = useState('overview');
   const formData = state.formData.evaluation || {};
   const isPartner = isPartnerView();
+
+  // Annotation component
+  const AnnotationIcon = ({ id, note, className='' }) => {
+    const [isHovering, setIsHovering] = useState(false);
+    
+    return (
+      <div className="relative inline-flex">
+        <Info 
+          className={`h-10 w-10 text-sw-green  ${className}`}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        />
+        {isHovering && (
+          <div className="absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 left-full ml-2">
+            {note}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const handleChange = (field, value) => {
     if (isPartner) return; // Prevent partners from making changes
@@ -100,16 +124,22 @@ const Evaluation = () => {
         </div>
       )}
 
-      {/* Header */}
+      {/* Header with Annotation #3 */}
       <div className="bg-white rounded-lg shadow-sm p-6">
-        <div className="flex items-start space-x-3">
-          <ClipboardList className="h-6 w-6 text-sw-blue flex-shrink-0" />
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900">Partner Evaluation</h2>
-            <p className="mt-1 text-sm text-gray-500">
-              Complete the evaluation form to assess partner submissions and provide recommendations.
-            </p>
+        <div className="flex items-start justify-between">
+          <div className="flex items-start space-x-3">
+            <ClipboardList className="h-6 w-6 text-sw-blue flex-shrink-0" />
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900">Partner Evaluation</h2>
+              <p className="mt-1 text-sm text-gray-500">
+                Complete the evaluation form to assess partner submissions and provide recommendations.
+              </p>
+            </div>
           </div>
+          <AnnotationIcon 
+            id="staff-only" 
+            note="This page should only be editable for SW staff members" 
+          />
         </div>
       </div>
 
@@ -118,38 +148,53 @@ const Evaluation = () => {
         <div className="px-6 py-4 bg-gray-50">
           <h3 className="text-lg font-medium text-gray-900">Assessment Areas</h3>
         </div>        
-            <div className="p-6">
-              <div className="mb-4">
-                <FormField
-                  label="Partner Assessment"
-                  helpText="Please provide a general overview of the application including the following areas: EDI, Participation, Pathway and Performance, Governance and Leadership, Workforce and coaching, Additional priorities, Insight and data usage, Governance Improvement Plan progress, Accountability commitment, Sport Wales relationship, and Partner feedback."
-                >
-          <div className="space-y-2">
-                    <p className="text-sm text-gray-500">Review should cover:</p>
-                    <ul className="text-sm text-gray-500 list-disc pl-5 space-y-1">
-                      <li>Partner engagement with Sport Wales in identifying key areas and potential opportunities/issues</li>
-                      <li>EDI, Participation, and Pathway & Performance initiatives</li>
-                      <li>Governance, Leadership, and Workforce development</li>
-                      <li>Use of insight and data</li>
-                      <li>Progress on Governance Improvement Plan</li>
-                      <li>Commitment to Accountability approach</li>
-                      <li>Overall relationship with Sport Wales</li>
-                      <li>Partner feedback on Sport Wales' support and areas for improvement</li>
-                    </ul>
-                  </div>
-                  <textarea
-                    value={formData.assessmentOverview || ''}
-                    onChange={(e) => handleChange('assessmentOverview', e.target.value)}
-                    rows={12}
-                    disabled={isPartner}
-                    className={`mt-4 block w-full p-3 rounded-md border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
-                      isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
-                    }`}
-                    placeholder={isPartner ? '' : "Enter your comprehensive assessment..."}
-                  />
-                </FormField>
+        <div className="p-6">
+          <div className="mb-4">
+            <div className="flex justify-between items-start">
+              <FormField
+                label="Partner Assessment"
+                helpText="Please provide a general overview of the application including the following areas: EDI, Participation, Pathway and Performance, Governance and Leadership, Workforce and coaching, Additional priorities, Insight and data usage, Governance Improvement Plan progress, Accountability commitment, Sport Wales relationship, and Partner feedback."
+              >
+                <div className="space-y-2">
+                  <p className="text-sm text-gray-500">Review should cover:</p>
+                  <ul className="text-sm text-gray-500 list-disc pl-5 space-y-1">
+                    <li>Partner engagement with Sport Wales in identifying key areas and potential opportunities/issues</li>
+                    <li>EDI, Participation, and Pathway & Performance initiatives</li>
+                    <li>Governance, Leadership, and Workforce development</li>
+                    <li>Use of insight and data</li>
+                    <li>Progress on Governance Improvement Plan</li>
+                    <li>Commitment to Accountability approach</li>
+                    <li>Overall relationship with Sport Wales</li>
+                    <li>Partner feedback on Sport Wales' support and areas for improvement</li>
+                  </ul>
+                </div>
+              </FormField>
+              
+              {/* Annotations #1 and #2 */}
+              <div className="flex flex-col space-y-3 ml-4 mt-6">
+                <AnnotationIcon 
+                  id="editable-assessment" 
+                  note="The Assessment area should be editable for the user (SW staff) to add text and should be visually obvious" 
+                />
+                <AnnotationIcon 
+                  id="cross-reference" 
+                  note="The user (SW staff) should be able to cross-reference easily with the 'areas of focus' submission which the partner had already added. Could this be included side by side or have an easy reference to it whilst the assessment box is populated." 
+                />
               </div>
             </div>
+            
+            <textarea
+              value={formData.assessmentOverview || ''}
+              onChange={(e) => handleChange('assessmentOverview', e.target.value)}
+              rows={12}
+              disabled={isPartner}
+              className={`mt-4 block w-full p-3 rounded-md border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
+                isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+              }`}
+              placeholder={isPartner ? '' : "Enter your comprehensive assessment..."}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Financial Recommendations */}
@@ -248,24 +293,50 @@ const Evaluation = () => {
         </div>
         
         <div className="p-6 space-y-6">
-          <FormField
-            label="Payment Conditions"
-            helpText="Areas to be completed within the specified timeframe for investment release. These conditions will be included in the offer letter."
-          >
-            <textarea
-              value={formData.conditions || ''}
-              onChange={(e) => handleChange('conditions', e.target.value)}
-              rows={4}
-              disabled={isPartner}
-              className={`block w-full h-[400px] rounded-md p-2 pt-5 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
-                isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
-              }`}
-              placeholder={isPartner ? '' : "Enter conditions or 'none'"}
-            />
-          </FormField>
-          
+          <div className="flex justify-between items-start">
+            <div className="flex-grow">
+              <FormField
+                label="Payment Conditions"
+                helpText="Areas to be completed within the specified timeframe for investment release. These conditions will be included in the offer letter."
+              >
+                <div className="relative">
+                  <textarea
+                    value={formData.conditions || ''}
+                    onChange={(e) => handleChange('conditions', e.target.value)}
+                    rows={4}
+                    disabled={isPartner}
+                    className={`block w-full h-[400px] rounded-md p-2 pt-5 border-gray-300 shadow-sm focus:ring-sw-blue focus:border-sw-blue sm:text-sm ${
+                      isPartner ? 'bg-gray-50 cursor-not-allowed' : ''
+                    }`}
+                    placeholder={isPartner ? '' : "Enter conditions or 'none'"}
+                  />
+                  {/* Annotation #1 - directly on the text box */}
+                  <div className="absolute top-2 right-2">
+                    <AnnotationIcon 
+                      id="condition-sync" 
+                      note="When a condition is added here, it should populate across to 'accountability' and 'offer'" 
+                    />
+                  </div>
+                </div>
+              </FormField>
+            </div>
+            
+            {/* Annotations #2 and #3 - next to the text box */}
+            <div className="ml-4 space-y-4 mt-8 flex flex-col
+          ">
+              <AnnotationIcon 
+                id="condition-completion" 
+                note="When a condition is completed by a partner during the financial year, the relevant relationship manager should be informed" 
+              />
+              <AnnotationIcon 
+                id="condition-ownership" 
+                note="Part of the conditions area should allow the user to allocate ownership of a condition to a specific person" 
+              />
+            </div>
+          </div>
         </div>
       </div>
+
 
       {/* Sign Off Section */} 
       <div className="bg-white rounded-lg shadow-sm">
