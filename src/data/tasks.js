@@ -72,19 +72,19 @@ export const tasks = [
     staffOnly: true,
     documentType: DOCUMENT_TYPES.ANNUAL
   },
+  // {
+  //   id: 7,
+  //   title: 'Progress Check',
+  //   description: 'Staff assessment review',
+  //   status: 'disabled',
+  //   type: 'form',
+  //   deadline: '2025-03-07',
+  //   component: 'AccountabilityCheck',
+  //   staffOnly: true,
+  //   documentType: DOCUMENT_TYPES.ANNUAL
+  // },
   {
     id: 7,
-    title: 'Progress Check',
-    description: 'Staff assessment review',
-    status: 'disabled',
-    type: 'form',
-    deadline: '2025-03-07',
-    component: 'AccountabilityCheck',
-    staffOnly: true,
-    documentType: DOCUMENT_TYPES.ANNUAL
-  },
-  {
-    id: 8,
     title: 'Sign Off',
     description: 'Final approval and sign off',
     status: 'disabled',
@@ -94,7 +94,7 @@ export const tasks = [
     documentType: DOCUMENT_TYPES.ANNUAL
   },
   {
-    id: 9,
+    id: 8,
     title: 'Offer',
     description: 'Review and accept offer',
     status: 'disabled',
@@ -104,7 +104,7 @@ export const tasks = [
     documentType: DOCUMENT_TYPES.ANNUAL
   },
   { 
-    id: 10, 
+    id: 9, 
     title: 'Accountability Log',
     description: 'Progress and learning documentation',
     status: 'disabled',
@@ -114,16 +114,16 @@ export const tasks = [
     documentType: DOCUMENT_TYPES.QUARTERLY,
     quarters: ['Q1', 'Q2', 'Q3', 'Q4']
   },
-  {
-    id: 11,
-    title: 'Additional Documentation',
-    description: 'Supporting documents submission',
-    status: 'disabled',
-    type: 'upload',
-    deadline: '2025-03-21',
-    component: 'AdditionalDocs',
-    documentType: DOCUMENT_TYPES.ANNUAL
-  },
+  // {
+  //   id: 11,
+  //   title: 'Additional Documentation',
+  //   description: 'Supporting documents submission',
+  //   status: 'disabled',
+  //   type: 'upload',
+  //   deadline: '2025-03-21',
+  //   component: 'AdditionalDocs',
+  //   documentType: DOCUMENT_TYPES.ANNUAL
+  // },
 ];
 
 
@@ -148,17 +148,17 @@ export const taskSections = {
   'Staff Assessment': {
     type: DOCUMENT_TYPES.ANNUAL,
     description: 'Sport Wales staff review and evaluation',
-    tasks: [tasks[5], tasks[6]]
+    tasks: [tasks[5],]
   },
   'Sign Off & Offer’ ': {
     type: DOCUMENT_TYPES.ANNUAL,
     description: 'Completion and acceptance process',
-    tasks: [tasks[7], tasks[8]]
+    tasks: [tasks[6], tasks[7]]
   },
   'Accountability': {
     type: DOCUMENT_TYPES.QUARTERLY,
     description: 'Regular accountability meetings and updates',
-    tasks: [tasks[9], tasks[10]]
+    tasks: [tasks[8]]
   },
 };
 
@@ -191,11 +191,11 @@ export const steps = [
   { component: 'CapabilityFramework', key: 'capabilityFramework', title: 'Capability Framework' },
   { component: 'GovernanceImprovementPlan', key: 'governanceImprovementPlan', title: 'Governance Improvement Plan' },
   { component: 'Evaluation', key: 'evaluation', title: 'Evaluation' },
-  { component: 'AccountabilityCheck', key: 'accountabilityCheck', title: 'Accountability Check' },
+  // { component: 'AccountabilityCheck', key: 'accountabilityCheck', title: 'Accountability Check' },
   { component: 'SignOff', key: 'signOff', title: 'Sign Off' },
   { component: 'OfferLetter', key: 'offerLetter', title: 'Offer' },
   { component: 'AccountabilityLog', key: 'accountabilityLog', title: 'Accountability Log' },
-  { component: 'AdditionalDocs', key: 'additionalDocumentation', title: 'Additional Documentation' },
+  // { component: 'AdditionalDocs', key: 'additionalDocumentation', title: 'Additional Documentation' },
 ];
 
 

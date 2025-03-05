@@ -42,10 +42,10 @@ const InvestmentForm = ({ currentTask, onSubmit, onSaveDraft, onTaskChange }) =>
     'GovernanceImprovementPlan': GovernanceImprovementPlan,
     'AccountabilityCheck': AccountabilityCheck,
     'Evaluation':  Evaluation,
-    'SignOff': SignOff,
+    // 'SignOff': SignOff,
     'OfferLetter': OfferLetter,
     'AccountabilityLog': AccountabilityLog,
-    'AdditionalDocs': AdditionalDocs,
+    // 'AdditionalDocs': AdditionalDocs,
   };
  
 
