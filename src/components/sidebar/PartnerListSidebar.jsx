@@ -28,7 +28,7 @@ const PartnerListSidebar = ({ partners, onPartnerSelect, onBack }) => {
     : partners;
 
   return (
-    <div className="w-[520px] min-w-[520px] max-w-[520px] bg-white border-r flex flex-col h-full">
+    <div className="w-[320px] min-w-[320px] max-w-[520px] bg-white border-r flex flex-col h-full">
       {/* Search */}
       <div className="p-4 border-b">
 
@@ -88,3 +88,9 @@ const PartnerListSidebar = ({ partners, onPartnerSelect, onBack }) => {
 };
 
 export default PartnerListSidebar;
+
+
+
+
+
+

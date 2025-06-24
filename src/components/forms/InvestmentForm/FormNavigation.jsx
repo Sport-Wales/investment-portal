@@ -55,6 +55,7 @@ const FormNavigation = ({
        {/* Action Buttons */}
        <div className="flex space-x-4">
          {/* Save Draft Button */}
+         
          <button
            type="button"
            onClick={onSave}
@@ -73,6 +74,7 @@ const FormNavigation = ({
          </button>
 
          {/* Next/Submit Button */}
+         {![4, 5, 7, 8].includes(currentTaskId) && 
          <button
            type="button"
            onClick={handleNext}
@@ -88,7 +90,7 @@ const FormNavigation = ({
          >
            {isLastStep ? 'Submit' : 'Next'}
            {!isLastStep && <ArrowRight className="w-4 h-4 ml-2" />}
-         </button>
+         </button>}
        </div>
      </div>
 

@@ -276,10 +276,9 @@ const OfferLetter = () => {
             </div>
 
             {/* Specific Expectations Section */}
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-100">
+            {/* <div className="bg-gray-50 p-8 rounded-lg border border-gray-100">
             <h3 className="text-xl font-semibold mb-8 text-gray-900">3. Specific Expectations:</h3>
             
-            {/* Display Evaluation Expectations */}
             {state.formData.evaluation?.expectations && (
                 <div className="mb-6 bg-blue-50 rounded-lg p-4 border-l-4 border-sw-blue">
                 <div className="flex items-start space-x-3">
@@ -305,7 +304,7 @@ const OfferLetter = () => {
                 className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue sm:text-sm py-3 px-4"
                 />
             </FormField>
-            </div>
+            </div> */}
 
           {/* Sign Off Section */}
           <div className="pt-12 border-t border-gray-200">

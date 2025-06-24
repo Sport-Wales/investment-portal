@@ -15,7 +15,8 @@ import {
   History,
   RefreshCw,
   Home,
-  Info
+  Info,
+   LayoutDashboard,
 } from 'lucide-react';
 
 // Financial years available in the system
@@ -26,7 +27,7 @@ const financialYears = [
 ];
 
 // Annotation component
-const AnnotationIcon = ({ id, note, className='' }) => {
+const AnnotationIcon = ({ id, note, className='', direction='left' }) => {
   const [isHovering, setIsHovering] = useState(false);
   
   return (
@@ -37,7 +38,7 @@ const AnnotationIcon = ({ id, note, className='' }) => {
         onMouseLeave={() => setIsHovering(false)}
       />
       {isHovering && (
-        <div className="absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 left-full ml-2">
+        <div className={`absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 ${direction}-full ml-2`}>
           {note}
         </div>
       )}
@@ -85,7 +86,7 @@ const Sidebar = ({
 
   // Get appropriate icon based on task status and type
   const getTaskIcon = (task, isActive) => {
-    if (task.documentType === DOCUMENT_TYPES.LIVING) {
+    if (task.documentType === DOCUMENT_TYPES.LIVING || task.documentType ===  DOCUMENT_TYPES.QUARTERLY) {
       return <RefreshCw className={`w-4 h-4 ${isActive ? "text-white": "text-sw-blue"} `} />;
      
     }
@@ -101,7 +102,7 @@ const Sidebar = ({
   };
 
   return (
-    <div className="w-[520px] min-w-[520px] max-w-[520px] bg-gray-50 border-r flex flex-col h-full overflow-hidden">
+    <div className="w-[420px] min-w-[420px] max-w-[420px] bg-gray-50 border-r flex flex-col h-full overflow-hidden">
       {partner ? (
         <div className="p-4">
           <button
@@ -147,30 +148,50 @@ const Sidebar = ({
         
         <div className="px-4 pt-4">
           
-          <button
-            onClick={() => onTaskSelect('dashboard')}
-            className={`
-              w-full flex items-center px-4 py-4 rounded-lg transition-colors
-              ${currentView === 'dashboard' 
-                ? 'bg-sw-blue text-white' 
-                : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}
-            `}
-          >
-            <Home className="w-5 h-5 mr-3" />
-            <span className={`font-bold text-sm ${currentView === 'dashboard' 
-                ? 'text-white ' 
-                : ' text-gray-900'} text-gray-900`}>Dashboard</span>
-          </button>
+         <div className="space-y-2">
+            <button
+              onClick={() => onTaskSelect('home')}
+              className="w-full flex items-center px-4 py-4 rounded-lg transition-colors bg-gray-50 text-gray-700 hover:bg-gray-100"
+            >
+              <Home className="w-5 h-5 mr-3" />
+              <span className="font-bold text-sm text-gray-900">Home</span>
+            </button>
+            <AnnotationIcon
+            className='ml-8  left-[480%] relative'
+                id="Sidebar" 
+                note="When a user completes a section, such as 'Partner Investment Offer and Conditions' submission, it visually shows that it's no longer needing to be populated with information but should still be accessible. " 
+                direction='left'
+              />
+                
+            <button
+              onClick={() => onTaskSelect('dashboard')}
+              className={`
+                w-full flex items-center px-4 py-5 transition-colors border rounded-lg shadow-sm 
+                ${currentView === 'dashboard' 
+                  ? 'bg-sw-blue text-white' 
+                  : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}
+              `}
+            >
+              <LayoutDashboard className="w-5 h-5 mr-3" />
+              <span className={`font-bold text-sm ${currentView === 'dashboard' 
+                  ? 'text-white ' 
+                  : ' text-gray-900'} text-gray-900`}>Dashboard</span>
+            </button>
+          </div>
         </div>
-        <AnnotationIcon
-        className='ml-3 m-1'
-            id="Sidebar" 
-            note="When a user completes a section, such as 'The Partnership' submission, it visually shows that it's no longer needing to be populated with information but should still be accessible. " 
-          />
+        
         <div className="p-4 space-y-4">
           {Object.entries(taskSections).map(([sectionTitle, section]) => {
             const isLivingSection = section.type === DOCUMENT_TYPES.LIVING;
             const isQuarterlySection = section.type === DOCUMENT_TYPES.QUARTERLY;
+
+           const note =
+            sectionTitle === "Capability Area"
+              ? "Live; regular completion dates e.g. monthly"
+              : sectionTitle === "Accountability Area"
+              ? "Live and ongoing input and updates throughout year"
+              : "";
+
             
             return (
               <div 
@@ -196,9 +217,17 @@ const Sidebar = ({
                   
                   <div className="flex items-center space-x-2">
                     {isLivingSection && (
-                      <span className="text-xs text-sw-blue bg-blue-50 px-2 py-1 rounded-full">
-                        Living Document
+                      <>
+                      <span className="text-xs text-sw-blue bg-red-100 px-5 py-1 rounded-full">
+                        Live
                       </span>
+                       <AnnotationIcon 
+                          id="sidebar-task" 
+                          note={note} 
+                          direction='left'
+                    />
+                      
+                    </>
                     )}
                     <ChevronDown
                       size={16}

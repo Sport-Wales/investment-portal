@@ -1,7 +1,7 @@
 // src/components/dashboard/StaffDashboard.jsx
 import React, { useState } from 'react';
 import { 
-  Users, 
+   Users, 
   CheckCircle, 
   AlertTriangle, 
   Calendar,
@@ -11,7 +11,8 @@ import {
   X,
   Clock,
   ChevronRight,
-  Info // Added for annotation icons
+  Bell, 
+  Info
 } from 'lucide-react';
 
 // Annotation component
@@ -36,34 +37,37 @@ const AnnotationIcon = ({ id, note, className='' }) => {
 
 // Add this to the mock data section
 const followUps = [
-    {
-      id: 1,
-      partner: 'Welsh Athletics',
-      type: 'Documentation',
-      dueDate: '2024-01-21',
-      priority: 'high',
-      task: 'Review updated Governance Improvement Plan',
-      assignedTo: 'John Smith'
-    },
-    {
-      id: 2,
-      partner: 'Swim Wales',
-      type: 'Meeting Action',
-      dueDate: '2024-01-23',
-      priority: 'medium',
-      task: 'Send quarterly review meeting notes',
-      assignedTo: 'Sarah Jones'
-    },
-    {
-      id: 3,
-      partner: 'Tennis Wales',
-      type: 'Support',
-      dueDate: '2024-01-25',
-      priority: 'low',
-      task: 'Check capability framework progress',
-      assignedTo: 'John Smith'
-    }
-  ];
+  {
+    id: 1,
+    partner: 'Welsh Athletics',
+    type: 'Documentation',
+    dueDate: '2024-01-21',
+    priority: 'high',
+    task: 'Review updated Governance Improvement Plan',
+    assignedTo: 'John Smith',
+    status: 'complete' 
+  },
+  {
+    id: 2,
+    partner: 'Swim Wales',
+    type: 'Meeting Action',
+    dueDate: '2024-01-23',
+    priority: 'medium',
+    task: 'Send quarterly review meeting notes',
+    assignedTo: 'Sarah Jones',
+    status: 'overdue' 
+  },
+  {
+    id: 3,
+    partner: 'Tennis Wales',
+    type: 'Support',
+    dueDate: '2024-01-25',
+    priority: 'low',
+    task: 'Check capability framework progress',
+    assignedTo: 'John Smith',
+    status: 'pending'  
+  }
+];
 
 const StaffDashboard = ({ partners, onPartnerSelect }) => {
   const [activeModal, setActiveModal] = useState(null);
@@ -108,26 +112,108 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
   };
 
   // Mock upcoming meetings data
-  const upcomingMeetings = [
-    {
-      id: 1,
-      partner: 'Welsh Athletics',
-      type: 'Quarterly Review',
-      date: '2024-01-20',
-      time: '10:00 AM',
-      status: 'confirmed',
-      description: 'Q4 progress review and planning for next quarter'
-    },
-    {
-      id: 2,
-      partner: 'Swim Wales',
-      type: 'Support Meeting',
-      date: '2024-01-22',
-      time: '2:00 PM',
-      status: 'pending',
-      description: 'Capability framework assistance'
-    }
-  ];
+const upcomingMeetings = [
+  {
+    id: 1,
+    partner: 'Welsh Athletics',
+    type: 'Quarterly Review',
+    date: '2024-01-20',
+    time: '10:00 AM',
+    status: 'confirmed',
+    description: 'Q4 progress review and planning for next quarter'
+  },
+  {
+    id: 2,
+    partner: 'Swim Wales',
+    type: 'Support Meeting',
+    date: '2024-01-22',
+    time: '2:00 PM',
+    status: 'pending',
+    description: 'Capability framework assistance'
+  }
+];
+
+//   // Mock staff notifications data
+//  const staffNotifications = [
+//   {
+//     id: 1,
+//     type: 'upcoming_task',
+//     message: 'Welsh Athletics - Partnership Agreement due for review',
+//     dueDate: '2025-01-25',
+//     priority: 'high',
+//     partner: 'Welsh Athletics',
+//     timestamp: '1h ago'
+//   },
+//   {
+//     id: 2,
+//     type: 'partner_deadline',
+//     message: 'Swim Wales - Capability Framework self-assessment due',
+//     dueDate: '2025-01-28',
+//     priority: 'medium',
+//     partner: 'Swim Wales',
+//     timestamp: '2h ago'
+//   },
+//   {
+//     id: 3,
+//     type: 'staff_task',
+//     message: 'Complete evaluation reports for 5 partners',
+//     dueDate: '2025-01-30',
+//     priority: 'high',
+//     partner: null,
+//     timestamp: '3h ago'
+//   },
+//   {
+//     id: 4,
+//     type: 'upcoming_task',
+//     message: 'Tennis Wales - Quarterly accountability log overdue',
+//     dueDate: '2025-01-22',
+//     priority: 'urgent',
+//     partner: 'Tennis Wales',
+//     timestamp: '5h ago'
+//   }
+// ];
+
+
+
+// Mock staff notifications data
+const staffNotifications = [
+  {
+    id: 1,
+    message: 'Welsh Athletics - Partnership Agreement due for review',
+    type: 'partner_task',
+    priority: 'high',
+    dueDate: '2025-01-29',
+    timestamp: '2h ago',
+    partner: 'Welsh Athletics'
+  },
+  {
+    id: 2,
+    message: 'Swim Wales - Capability Framework assessment overdue',
+    type: 'overdue',
+    priority: 'urgent',
+    dueDate: '2025-01-25',
+    timestamp: '1d ago',
+    partner: 'Swim Wales'
+  },
+  {
+    id: 3,
+    message: 'Tennis Wales - Request for support ',
+    type: 'upcoming_task',
+    priority: 'medium',
+    dueDate: '2025-02-05',
+    timestamp: '3h ago',
+    partner: 'Tennis Wales'
+  },
+  {
+    id: 4,
+    message: 'Complete evaluation reports ',
+    type: 'staff_task',
+    priority: 'high',
+    dueDate: '2025-02-15',
+    timestamp: '5h ago',
+    partner: null
+  }
+];
 
   // Mock activity data
   const partnerActivity = [
@@ -180,7 +266,7 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="max-w-full mx-32 space-y-6">
       {/* Dashboard Header with Annotation #1 */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-900">Staff Dashboard</h1>
@@ -188,6 +274,7 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
           id="dashboard-default" 
           note="The dashboard overview should default to the staff member's portfolio of partners i.e. showing the partners which are relevant to them" 
         />
+      
       </div>
 
       {/* Overview Stats */}
@@ -214,7 +301,6 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
               />
           </div>
         </div>
-        
 
         <StatCard
           icon={CheckCircle}
@@ -252,6 +338,7 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
 
       {/* Upcoming Meetings Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
         {/* Follow-ups */}
         <div className="bg-white rounded-lg shadow-sm p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-6">Required Follow-ups</h2>
@@ -272,56 +359,49 @@ const StaffDashboard = ({ partners, onPartnerSelect }) => {
                       {followUp.assignedTo}
                     </div>
                   </div>
-                  <button className="ml-4 text-sw-blue hover:text-sw-blue-dark">
-                    <ChevronRight className="h-5 w-5" />
-                  </button>
+                 <div className="ml-4">
+                  <span className={`text-xs px-2 py-1 rounded-full ${
+                    followUp.status === 'complete' ? 'bg-green-100 text-green-800' :
+                    followUp.status === 'overdue' ? 'bg-red-100 text-red-800' :
+                    'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {followUp.status === 'complete' ? 'Complete' :
+                    followUp.status === 'overdue' ? 'Overdue' :
+                    'Pending'}
+                  </span>
+                </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Scheduled Meetings with Annotation #4 */}
-        <div className="bg-white rounded-lg shadow-sm p-6 relative">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-semibold text-gray-900">Upcoming Meetings</h2>
-            <div className="absolute right-6 top-6">
-              <AnnotationIcon 
-                id="meetings-outlook" 
-                note="If this is possible Upcoming meetings display will need to link to the user's meetings/Outlook. Need to be able to set up meeting on the dashboard and in our outlook/teams and see the meeting that are coming up" 
-              />
-            </div>
-          </div>
-          <div className="space-y-4">
-            {upcomingMeetings.map(meeting => (
-              <div 
-                key={meeting.id}
-                className="flex items-start p-4 bg-gray-50 rounded-lg"
-              >
-                <Calendar className={`h-5 w-5 mt-0.5 ${
-                  meeting.status === 'confirmed' ? 'text-sw-green' : 'text-sw-yellow'
-                }`} />
-                <div className="ml-3 flex-1">
-                  <div className="flex justify-between">
-                    <p className="text-sm font-medium text-gray-900">{meeting.partner}</p>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      meeting.status === 'confirmed' 
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-amber-100 text-amber-800'
-                    }`}>
-                      {meeting.status}
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-600">{meeting.type}</p>
-                  <p className="text-sm text-gray-500 mt-1">
-                    {new Date(meeting.date).toLocaleDateString()} at {meeting.time}
-                  </p>
-                  <p className="text-sm text-gray-600 mt-2">{meeting.description}</p>
-                </div>
-              </div>
-            ))}
+        {/* Staff Notifications */}
+<div className="bg-white rounded-lg shadow-sm p-6">
+  <div className="flex items-center mb-6">
+    <Bell className="h-5 w-5 text-sw-blue mr-2" />
+    <h2 className="text-lg font-semibold text-gray-900">Notifications</h2>
+  </div>
+  <div className="space-y-4">
+    {staffNotifications.map(notification => (
+      <div key={notification.id} className="flex items-start p-3 bg-gray-50 rounded-lg">
+        <div className="ml-3">
+          <p className="text-sm text-gray-600">{notification.message}</p>
+          <div className="flex items-center text-xs text-gray-400 mt-1 space-x-2">
+            <span>{notification.timestamp}</span>
+            {notification.dueDate && (
+              <>
+                <span>•</span>
+                <span>Due: {new Date(notification.dueDate).toLocaleDateString()}</span>
+              </>
+            )}
           </div>
         </div>
+      </div>
+    ))}
+  </div>
+</div>
+
       </div>
 
       {/* Partner Activity Section with Annotation #3 */}

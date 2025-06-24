@@ -387,13 +387,11 @@ const CapabilityFramework = () => {
                 {/* Status Selection */}
                 <FormField
                   label="Current Status"
-                  required
-                >
+                  required >
                   <select
                     value={data.status || ''}
                     onChange={(e) => handleChange(requirement.id, 'status', e.target.value)}
-                    className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
-                  >
+                    className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue" >
                     <option value="">Select status...</option>
                     <option value="completed">Area Completed & Up to Date</option>
                     <option value="in-progress">Work in Progress & Action in GIP</option>
@@ -401,7 +399,41 @@ const CapabilityFramework = () => {
                     <option value="need-help">Help Needed</option>
                   </select>
                 </FormField>
-  
+
+                {/* Date of Next Review */}
+                <FormField
+                  label="Date of Next Review"
+                  helpText="Select when you would like this requirement to be reviewed next"
+                >
+                  <input
+                    type="date"
+                    value={data.nextReviewDate || ''}
+                    onChange={(e) => handleChange(requirement.id, 'nextReviewDate', e.target.value)}
+                    className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-sw-blue focus:ring-sw-blue"
+                  />
+                </FormField>
+
+               {/* Guidance and Resources */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h5 className="text-sm font-medium text-blue-900 mb-2">Guidance and Resources</h5>
+                <p className="text-xs text-blue-700 mb-3">
+                  Need help with this requirement? Access additional guidance and templates below:
+                </p>
+
+                <a
+                  href="https://www.sportwales.org.uk/governance-guidance"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-sm font-medium text-sw-blue hover:text-sw-blue-dark"
+                >
+                  <span>Visit Governance Guidance Portal</span>
+                  <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+
+
                 {/* Comments */}
                 <FormField
                   label="Comments"

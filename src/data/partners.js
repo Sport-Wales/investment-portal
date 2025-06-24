@@ -1,4 +1,16 @@
+
 export const partners = {
+  'My Partners': [
+    { id: 'angling-cymru', name: 'Angling Cymru', sport: 'Fishing' },
+    { id: 'badminton-wales', name: 'Badminton Wales', sport: 'Badminton' },
+    { id: 'basketball-wales', name: 'Basketball Wales', sport: 'Basketball' },
+    { id: 'bowls-wales', name: 'Bowls Wales', sport: 'Bowls' },
+    { id: 'canoe-wales', name: 'Canoe Wales', sport: 'Canoeing' },
+    { id: 'commonwealth-games-wales', name: 'Commonwealth Games Wales', sport: 'Multi-sport' },
+    { id: 'cricket-wales', name: 'Cricket Wales', sport: 'Cricket' },
+    { id: 'faw', name: 'Football Association of Wales', sport: 'Football' },
+    { id: 'hockey-wales', name: 'Hockey Wales', sport: 'Hockey' }, 
+  ],
   'National Governing Bodies': [
     { id: 'angling-cymru', name: 'Angling Cymru', sport: 'Fishing' },
     { id: 'badminton-wales', name: 'Badminton Wales', sport: 'Badminton' },
@@ -11,7 +23,7 @@ export const partners = {
     { id: 'hockey-wales', name: 'Hockey Wales', sport: 'Hockey' },
     { id: 'rya-cymru', name: 'RYA-Cymru Wales', sport: 'Sailing' },
     { id: 'snowsport-cymru', name: 'Snowsport Cymru Wales', sport: 'Snowsports' },
-    { id: 'squash-wales', name: 'Squash Wales', sport: 'Squash' },
+    { id: 'squash-wales', name: 'Squash Wales', sport: 'Squash' }, 
     { id: 'surf-ls-wales', name: 'Surf Life Saving Association Wales', sport: 'Surf Life Saving' },
     { id: 'swim-wales', name: 'Swim Wales', sport: 'Swimming' },
     { id: 'tenpin-bowling', name: 'Tenpin Bowls', sport: 'Bowling' },

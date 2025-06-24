@@ -93,7 +93,7 @@ const FinancialInformation = () => {
 
           {/* Performance & Succeed */}
           <FormField
-            label="Performance & Succeed"
+            label="Pathway & Performance"
             required
             error={state.errors?.performanceSucceed}
           >

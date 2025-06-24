@@ -5,6 +5,9 @@ import Layout from './components/Layout';
 import Portal from './pages/Portal';
 import InvestmentForm from './components/forms/InvestmentForm';
 import { FormProvider } from './context/FormContext';
+import { 
+  Info
+} from 'lucide-react';
 
 // Mock user types
 const mockUsers = {
@@ -29,6 +32,29 @@ const getPartnerTokenFromURL = () => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get('v');
 };
+
+
+
+// Annotation component
+  const AnnotationIcon = ({ id, note, className='' }) => {
+    const [isHovering, setIsHovering] = useState(false);
+    
+    return (
+      <div className={`relative inline-flex ${className} `}>
+        <Info 
+          className={`h-8 w-8 text-sw-green  }`}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        />
+        {isHovering && (
+          <div className="absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 left-full ml-2">
+            {note}
+          </div>
+        )}
+      </div>
+    );
+  };
+
 
 // Authentication Context
 const useAuth = () => {
@@ -66,16 +92,7 @@ const useAuth = () => {
 };
 
 
-// Protected Route Component
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
 
-  return <Layout>{children}</Layout>;
-};
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -111,6 +128,11 @@ const Login = ({ onLogin }) => {
             <p className="mt-5 text-lg text-gray-500">Staff Access</p>
           )}
         </div>
+         <AnnotationIcon 
+                id="create-user" 
+                note="When logging in for the first time, a user will see a page which lists the information needed for the various elements of the partner investment process i.e. relating to the funding application, governance assurance and accountability requirements"
+                className='left-[100%]' 
+          />
 
         {/* Login Card */}
         <div className="backdrop-blur-sm bg-white/90 px-6 py-8 shadow-xl rounded-xl border border-gray-100">
@@ -119,6 +141,10 @@ const Login = ({ onLogin }) => {
               <p className="text-sm text-red-600">{error}</p>
             </div>
           )}
+            <AnnotationIcon 
+                id="create-user" 
+                note="When registering for the first time, users will have to also create a password etc" 
+          />
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -203,6 +229,9 @@ const Login = ({ onLogin }) => {
     </div>
   );
 };
+
+
+
 
 // Main App Component
 // src/App.jsx

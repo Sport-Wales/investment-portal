@@ -10,6 +10,8 @@ import StaffDashboard from '../components/dashboard/StaffDashboard';
 import { tasks as initialTasks, taskSections } from '../data/tasks';
 import { partners as partnerList } from '../data/partners'; 
 
+import LandingPage from './LandingPage';
+
 const initialNotifications = [
   {
     id: 1,
@@ -35,8 +37,11 @@ const Portal = ({ user, onLogout }) => {
   const [selectedPartner, setSelectedPartner] = useState(null);
   const [notifications, setNotifications] = useState(initialNotifications);
   const [expandedSections, setExpandedSections] = useState({
-    'Partner Details': true
+    'Partnership form': true
   });
+
+  const [showLandingPage, setShowLandingPage] = useState(true);  
+  const [selectedSection, setSelectedSection] = useState(null);
 
 
 
@@ -53,7 +58,33 @@ const Portal = ({ user, onLogout }) => {
     ]);
   };
 
-  
+
+  // Handle section selection from landing page
+  const handleSectionSelect = (sectionKey) => {
+    if (sectionKey === 'dashboard') {
+      setView('dashboard');
+    } else {
+      // Find the section and navigate to its first task
+      const section = taskSections[sectionKey];
+      if (section && section.tasks.length > 0) {
+        const firstTask = section.tasks[0];
+        setCurrentTask(firstTask);
+        setView('form');
+        setExpandedSections({ [sectionKey]: true });
+      }
+    }
+    setShowLandingPage(false);
+    setSelectedSection(sectionKey);
+  };
+
+  const handleReturnToLanding = () => {
+    setShowLandingPage(true);
+    setView('dashboard');
+    setSelectedSection(null);
+    setCurrentTask(null);
+  };
+
+
  
 
   const scrollContainerRef = useRef(null);
@@ -109,10 +140,14 @@ const Portal = ({ user, onLogout }) => {
 
   // Existing task handling code...
   const handleTaskChange = (taskId) => {
-    if (taskId === 'dashboard') {
-      setView('dashboard');
-      return;
-    }
+  if (taskId === 'home') {
+    handleReturnToLanding();
+    return;
+  }
+  if (taskId === 'dashboard') {
+    setView('dashboard');
+    return;
+  }
     setView('form');
 
 
@@ -236,13 +271,19 @@ const Portal = ({ user, onLogout }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header 
-        user={user}  // Pass the full user object
-        notifications={notifications}
-        onLogout={onLogout}  // Pass the logout function
+  <div className="min-h-screen bg-gray-50">
+    <Header 
+      user={user}
+      notifications={notifications}
+      onLogout={onLogout}
+    />
+    
+    {showLandingPage ? (
+      <LandingPage 
+        user={user}
+        onSectionSelect={handleSectionSelect}
       />
-      
+    ) : (
       <div className="flex h-[calc(100vh-4rem)]">
         {renderSidebar()}
         
@@ -253,8 +294,9 @@ const Portal = ({ user, onLogout }) => {
           {renderMainContent()}
         </div>
       </div>
-    </div>
-  );
+    )}
+  </div>
+);
 };
 
 export default Portal;
