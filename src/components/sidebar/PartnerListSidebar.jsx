@@ -2,9 +2,9 @@
 
 // src/components/sidebar/PartnerListSidebar.jsx
 import React, { useState } from 'react';
-import { Search, ChevronDown, ChevronUp } from 'lucide-react';
+import { Search, Home, ChevronDown, ChevronUp } from 'lucide-react';
 
-const PartnerListSidebar = ({ partners, onPartnerSelect, onBack }) => {
+const PartnerListSidebar = ({ partners, onTaskSelect, onPartnerSelect, onBack }) => {
   const [search, setSearch] = useState('');
   const [expandedCategories, setExpandedCategories] = useState({
     'National Governing Bodies': true
@@ -31,6 +31,13 @@ const PartnerListSidebar = ({ partners, onPartnerSelect, onBack }) => {
     <div className="w-[320px] min-w-[320px] max-w-[520px] bg-white border-r flex flex-col h-full">
       {/* Search */}
       <div className="p-4 border-b">
+            <button
+              onClick={() => onTaskSelect('home')}
+              className="w-full flex items-center px-1 py-4 mb-2 rounded-lg transition-colors  text-gray-700 hover:bg-gray-100"
+            >
+              <Home className="w-5 h-5 mr-3" />
+              <span className="font-bold text-sm text-gray-900">Home</span>
+            </button>
 
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -mt-2 h-4 w-4 text-gray-400" />

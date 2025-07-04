@@ -38,7 +38,26 @@ const AnnotationIcon = ({ id, note, className='', direction='left' }) => {
         onMouseLeave={() => setIsHovering(false)}
       />
       {isHovering && (
-        <div className={`absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 ${direction}-full ml-2`}>
+        <div className={`absolute z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700 left-full ml-2`}>
+          {note}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const AnnotationIcon2 = ({ id, note, className='', direction='left' }) => {
+  const [isHovering, setIsHovering] = useState(false);
+  
+  return (
+    <div className="relative inline-flex">
+      <Info 
+        className={`h-8 w-8 text-sw-green  ${className}`}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      />
+      {isHovering && (
+        <div className={`absolute right-10 z-50 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-3 text-sm text-gray-700  ml-2`}>
           {note}
         </div>
       )}
@@ -221,10 +240,11 @@ const Sidebar = ({
                       <span className="text-xs text-sw-blue bg-red-100 px-5 py-1 rounded-full">
                         Live
                       </span>
-                       <AnnotationIcon 
+                       <AnnotationIcon2
                           id="sidebar-task" 
+                          className='z-50'
                           note={note} 
-                          direction='left'
+                          direction='right'
                     />
                       
                     </>

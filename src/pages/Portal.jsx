@@ -177,6 +177,7 @@ const Portal = ({ user, onLogout }) => {
       return (
         <PartnerListSidebar
           onBack={handleGoBack}
+          onTaskSelect={handleTaskChange}
           partners={partnerList}
           onPartnerSelect={handlePartnerSelect}
           onReturnToOverview={handleReturnToOverview}

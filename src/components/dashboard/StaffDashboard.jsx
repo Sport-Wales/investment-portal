@@ -215,15 +215,46 @@ const staffNotifications = [
   }
 ];
 
-  // Mock activity data
-  const partnerActivity = [
-    { name: 'Welsh Athletics', category: 'NGB', activity: 75, status: 'on-track' },
-    { name: 'Swim Wales', category: 'NGB', activity: 48, status: 'at-risk' },
-    { name: 'Tennis Wales', category: 'NGB', activity: 97, status: 'signed-off' },
-    { name: 'North Wales SP', category: 'SP', activity: 12, status: 'at-risk' },
-    { name: 'Disability Sport Wales', category: 'NP', activity: 88, status: 'on-track' },
-  ];
-
+// Mock outstanding tasks data
+const outstandingTasks = [
+  { 
+    partner: 'Welsh Athletics', 
+    task: 'Capability Framework Self-Assessment', 
+    deadline: '2025-02-15',
+    status: 'at-risk',
+    taskId: 6
+  },
+  { 
+    partner: 'Swim Wales', 
+    task: 'Partnership Agreement Review', 
+    deadline: '2025-01-29',
+    status: 'overdue',
+    taskId: 1
+  },
+  { 
+    partner: 'Tennis Wales', 
+    task: 'Quarterly Accountability Log', 
+    deadline: '2025-02-28',
+    status: 'pending',
+    taskId: 8
+  },
+  { 
+    partner: 'Basketball Wales', 
+    task: 'Governance Improvement Plan', 
+    deadline: '2025-02-10',
+    status: 'at-risk',
+    taskId: 7
+  },
+  { 
+    partner: 'Hockey Wales', 
+    task: 'Financial Information Update', 
+    deadline: '2025-03-05',
+    status: 'pending',
+    taskId: 3
+  },
+];
+ 
+  
   // Stat Card Component
   const StatCard = ({ icon: Icon, title, count, color, onClick }) => (
     <div
@@ -404,41 +435,51 @@ const staffNotifications = [
 
       </div>
 
-      {/* Partner Activity Section with Annotation #3 */}
+      {/* Outstanding Partner Tasks Section */}
       <div className="bg-white rounded-lg shadow-sm p-6 relative">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center">
-            <h2 className="text-lg font-semibold text-gray-900">Partner Progress indicator</h2>
-            <div className="ml-2">
-              <AnnotationIcon 
-                id="progress-tasks" 
-                note="The Partner progress indicator should become 'Outstanding partner tasks'. A drilldown or hover to see more detail and the deadline date. Be able to click on the task outstanding will take you to that task. (We no longer want this to be a progress indicator; it needs to show tasks still to be completed and tasks that are at risk of not being completed before the deadline)" 
-              />
-            </div>
+            <h2 className="text-lg font-semibold text-gray-900 mr-3">Outstanding Partner Tasks</h2>
+            <AnnotationIcon 
+              id="progress-tasks" 
+              note="The Outstanding partner tasks should allow users to either drilldown or hover to see more detail and the deadline date. Be able to click on the task outstanding will take you to that task.it needs to show tasks still to be completed and tasks that are at risk of not being completed before the deadline" 
+            />
           </div>
           <select className="text-sm border-gray-300 rounded-md">
-            <option>Last 7 days</option>
-            <option>Last 30 days</option>
-            <option>Last 90 days</option>
+            <option>All Partners</option>
+            <option>At Risk Only</option>
+            <option>Overdue Only</option>
           </select>
         </div>
         <div className="space-y-4">
-          {partnerActivity.map(partner => (
-            <div key={partner.name} className="flex items-center">
-              <span className="w-32 text-sm text-gray-600">{partner.name}</span>
-              <div className="flex-1 mx-4">
-                <div className="h-4 bg-gray-100 rounded-full">
-                  <div 
-                    className={`h-4 rounded-full ${
-                      partner.status === 'on-track' ? 'bg-sw-blue' :
-                      partner.status === 'at-risk' ? 'bg-sw-red' :
-                      'bg-sw-green'
-                    }`}
-                    style={{ width: `${partner.activity}%` }}
-                  />
+          {outstandingTasks.map((task, index) => (
+            <div 
+              key={index} 
+              className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
+             
+              title={`Click to view ${task.partner}'s tasks`}
+            >
+              <div className="flex-1">
+                <div className="flex items-center space-x-3">
+                  <span className="w-32 text-sm font-medium text-gray-900">{task.partner}</span>
+                  <span className="text-sm text-gray-600">{task.task}</span>
+                </div>
+                <div className="mt-1 text-xs text-gray-500">
+                  Due: {new Date(task.deadline).toLocaleDateString()}
                 </div>
               </div>
-              <span className="w-16 text-sm text-gray-600">{partner.activity}%</span>
+              <div className="flex items-center space-x-3">
+                <span className={`text-xs px-2 py-1 rounded-full ${
+                  task.status === 'overdue' ? 'bg-red-100 text-red-800' :
+                  task.status === 'at-risk' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-blue-100 text-blue-800'
+                }`}>
+                  {task.status === 'overdue' ? 'Overdue' :
+                  task.status === 'at-risk' ? 'At Risk' :
+                  'Pending'}
+                </span>
+                <ChevronRight className="h-4 w-4 text-gray-400" />
+              </div>
             </div>
           ))}
         </div>

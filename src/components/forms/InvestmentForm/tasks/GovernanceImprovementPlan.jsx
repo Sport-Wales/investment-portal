@@ -47,12 +47,15 @@ const GovernanceImprovementPlan = () => {
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Introduction Section */}
       <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">Governance Improvement Plan (GIP)</h3>
-        <p className="text-sm text-gray-600">
-          To ensure responsible investment of public money and support continuous improvement, 
-          please share your organisation's Governance Improvement Plan.
-        </p>
-        <div className="mt-4 bg-white p-4 rounded-md border border-gray-200">
+         <h4 className="font-extrabold text-2xl text-gray-900 mb-2">Auto-Generated Governance Improvement Plan</h4>
+        <div className="bg-white border border-blue-200 rounded-lg p-10 mb-4">
+          <p className="text-lg text-gray-800">
+            Your Governance Improvement Plan will be automatically generated based on your responses 
+            in the Capability Framework self assessment. As the partner completes and updates thier capability assessments, 
+            this plan will populate with relevant development areas and actions and generated the report.
+          </p>
+        </div>
+        {/* <div className="mt-4 bg-white p-4 rounded-md border border-gray-200">
           <h4 className="font-medium text-gray-900 mb-2">Minimum Requirements:</h4>
           <ul className="space-y-2 text-sm text-gray-600">
             <li className="flex items-center">
@@ -68,13 +71,13 @@ const GovernanceImprovementPlan = () => {
               Development timelines for each area
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Column - GIP Upload */}
-        <div className="space-y-6">
+        {/* <div className="space-y-6">
           <FormField
             label="Upload Your GIP Document"
             helpText="Please upload your current Governance Improvement Plan"
@@ -130,7 +133,6 @@ const GovernanceImprovementPlan = () => {
             </div>
           </FormField>
 
-          {/* Link Input */}
           <FormField
             label="Or Provide GIP Link"
             helpText="Share a link to your GIP if stored online"
@@ -148,12 +150,12 @@ const GovernanceImprovementPlan = () => {
               />
             </div>
           </FormField>
-        </div>
+        </div> */}
 
         {/* Right Column - Requirements and Support */}
         <div className="space-y-6">
           {/* Key Development Areas */}
-          <div className="bg-white p-6 rounded-lg border border-gray-200">
+          {/* <div className="bg-white p-6 rounded-lg border border-gray-200">
             <h4 className="font-medium text-gray-900 mb-4">Key Development Areas</h4>
             <div className="space-y-4 text-sm text-gray-600">
               <p className="flex items-start">
@@ -177,7 +179,7 @@ const GovernanceImprovementPlan = () => {
                 Annual appraisal process
               </p>
             </div>
-          </div>
+          </div> */}
 
           {/* Support Information */}
           <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
